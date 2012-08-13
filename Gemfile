@@ -12,6 +12,7 @@ gem 'sass-rails', '  ~> 3.2.3'
 gem 'devise'
 gem 'blacklight_highlight'
 gem 'blacklight-sitemap', '~> 1.0.0'
+gem 'solr_ead', :path => "gems/solr_ead"
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

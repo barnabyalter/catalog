@@ -1,9 +1,27 @@
 <div id="ead_body">
 
   <h2> General Information </h2>
-  <%= general_info %>
+  <dl class="defList">
+    <%= render_ead_field("title_t") %>
+    <%= render_ead_field("extent_t") %>
+    <%= render_ead_field("unitdate_z",        {:label=>"Dates"}) %>
+    <%= render_ead_field("langmaterial_s",    {:label=>"Language of Materials"}) %>
+    <%= render_ead_field("langusage_s",       {:label=>"Language of Finding Aid"}) %>
+    <%= render_ead_field("prefercite_t",      {:label=>"Preferred Citation"}) %>
+    <%= render_ead_field("custodhist_t",      {:label=>"Custodial History"}) %>
+    <%= render_ead_field("userestrict_t",     {:label=>"Use Restrictions"}) %>
+    <%= render_ead_field("accessrestrict_t",  {:label=>"Access Restrictions"}) %>
+    <%= render_ead_field("processinfo_t",     {:label=>"Processing Information"}) %>
+  </dl>
 
-  <%= ead_headings %>
+  <%= render_ead_heading("abstract_t") %>
+  <%= render_ead_heading("relatedmaterial_t") %>
+  <%= render_ead_heading("separatedmaterial_t") %>
+  <%= render_ead_heading("accruals_t") %>
+
+  <% # "bio_display", %>
+  <% #ead_headings %>
+
 
   <%= ead_subject_headings %>
 

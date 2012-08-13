@@ -21,12 +21,12 @@ module Rockhall::EadSolrMethods
 
     solr_params[:fl]   = "id"
     if opts[:parent_ref]
-      solr_params[:q]    = "parent_ref:#{opts[:parent_ref]} AND _query_:\"ead_id:#{ead_id}\""
+      solr_params[:q]    = "parent_id_s:#{opts[:parent_ref]} AND _query_:\"eadid_s:#{ead_id}\""
     else
-      solr_params[:q]    = "component_level:#{opts[:level]} AND _query_:\"ead_id:#{ead_id}\""
+      solr_params[:q]    = "component_level_i:#{opts[:level]} AND _query_:\"eadid_s:#{ead_id}\""
     end
     solr_params[:sort] = "sort_i asc"
-    solr_params[:qt]   = "standard"
+    solr_params[:qt]   = "document"
     solr_params[:rows] = 10000
     solr_response = Blacklight.solr.find(solr_params)
     list = solr_response.docs.collect {|doc| SolrDocument.new(doc, solr_response)}

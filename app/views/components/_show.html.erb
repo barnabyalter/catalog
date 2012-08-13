@@ -1,36 +1,39 @@
 <%= hide_component_button %>
 
 <% documents.each do |document| %>
+  <% @document = document %>
+  <div id="<%= @document[:ref_s] %>" <%= highlight?(@document[:ref_s] ) %> class="component_part clearfix c0<%= @document[:component_level_i] %>">
 
-  <div id="<%= document[:ref] %>" <%= highlight?(document[:ref]) %> class="component_part clearfix c0<%= document[:component_level] %>">
-
-    <!-- unitid_display was removed from the comma_list because it's not in solr anymore -->
-    <h5 id="<%= document[:id] %>">
+    <h5 id="<%= @document[:id] %>">
       <span>
-        <%= comma_list( [document["title_display"], document["unitdate_display"]] ) %>
+        <%= comma_list( [@document["title_display"], @document["unitdate_display"]] ) %>
       </span>
     </h5>
 
-    <!-- removed summary_display field because it's not in solr anymore -->
-
     <dl>
-      <%= render_odd_field(document) %>
-      <%= render_component_field(document, "contents_display") %>
-      <%= render_component_field(document, "separatedmaterial_display") %>
-      <%= render_component_field(document, "access_display") %>
-      <%= render_component_field(document, "originalsloc_display") %>
-      <%= render_component_field(document, "physdesc_display") %>
-      <%= render_component_field(document, "dimensions_display") %>
+      <%= render_component_field("general_note") %>
+      <%= render_component_field("scopecontent") %>
+      <%= render_component_field("accessrestrict") %>
+      <%= render_component_field("separatedmaterial") %>
+      <%= render_component_field("originalsloc") %>
+      <%= render_component_field("physdesc",{:label=>"Physical Description"}) %>
+      <%= render_component_field("dimensions") %>
 
-      <!-- location_display is not in Blacklight config -->
-      <%= render_component_field(document, "location_display", { :label => "Location" }) %>
+      <% if @document["accession_display"] %>
+        <dt>Musuem Accession Numbers:</dt>
+        <dd><%= @document["accession_display"].join("<br/>") %></dd>
+      <% end %>
 
-      <%= render_component_field(document, "langmaterial_display") %>
-      <%= render_component_field(document, "acqinfo_display") %>
+      <% if @document["location_display"] %>
+        <dt>Location:</dt>
+        <dd><%= @document["location_display"].first %></dd>
+      <% end %>
 
+      <%= render_component_field("langmaterial",{:label=>"Language of Materials"}) %>
+      <%= render_component_field("acqinfo") %>
     </dl>
 
-    <%= continue_components(document) %>
+    <%= continue_components %>
 
   </div>
 

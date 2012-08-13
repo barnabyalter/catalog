@@ -2,42 +2,43 @@ module ArchivalCollectionHelper
 
   include Rockhall::EadMethods
 
-  def general_info
-    results = String.new
-
-    results << "<dl class=\"defList\">"
-    results << gen_info_format(:title_display) unless @document[:title_display].nil?
-    results << gen_info_format(:extent_display) unless @document[:extent_display].nil?
-
-    # Dates get special treatment
-    if @document[:date_display]
-      results << "<dt class=\"blacklight-date_display\">Dates:</dt>"
-      results << "<dd class=\"blacklight-date_display\">" + @document[:date_display].join(" ") + "</dd>"
-    else
-      unless @document[:inc_date_display].nil? and @document[:bulk_date_display].nil?
-        results << "<dt class=\"blacklight-date_display\">Dates:</dt>"
-        results << "<dd class=\"blacklight-date_display\">Inclusive, "
-        results << @document[:inc_date_display].join(" ")
-        unless @document[:bulk_date_display].nil?
-          results << "; "
-          results << @document[:bulk_date_display].join(" ")
-        end
-        results << "</dd>"
-      end
+  # Renders an ead field within a <dl> context, such as under the General Information
+  # section or within a component section as well.
+  def render_ead_field(field,opts={},results = String.new)
+    label = opts[:label] ? opts[:label] : build_label(field)
+    unless @document[field].nil?
+      results << "<dt>" + label + ":</dt>"
+      results << "<dd>" + build_value(field) + "</dd>"
     end
-
-    results << gen_info_format(:language_display) unless @document[:language_display].nil?
-    results << gen_info_format(:aid_language_display) unless @document[:aid_language_display].nil?
-    results << gen_info_format(:citation_display) unless @document[:citation_display].nil?
-    results << gen_info_format(:provenance_display) unless @document[:provenance_display].nil?
-    results << gen_info_format(:usage_display) unless @document[:usage_display].nil?
-    results << gen_info_format(:access_display) unless @document[:access_display].nil?
-    results << gen_info_format(:process_display) unless @document[:process_display].nil?
-
-    results << "</dl>"
-
     return results.html_safe
   end
+
+  # Renders an ead field on its own in a heading + paragraph format
+  def render_ead_heading(field,opts={},results = String.new)
+    label = opts[:label] ? opts[:label] : build_label(field)
+    unless @document[field].nil?
+      results << "<h2>" + label + "</h2>"
+      results << "<p>" + @document[field].join("</p><p>") + "</p>"
+    end
+    return results.html_safe
+  end
+
+  # Determines the field label by either using the *_label_z field name or
+  # simply titleizes the field name itself.
+  def build_label(field)
+    name = field.gsub(/_[a-z]$/,"")
+    @document[(name + "_label_z")] ? @document[(name + "_label_z")] : name.titleize
+  end
+
+  # Concatenates multiple field values into one string, joined with <br/> tags
+  def build_value(field)
+    @document[field].respond_to?("join") ?  @document[field].join("<br/>") : @document[field]
+  end
+
+
+  #
+  # Old Methods
+  #
 
 
   def ead_headings

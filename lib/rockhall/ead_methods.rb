@@ -1,6 +1,5 @@
 module Rockhall::EadMethods
 
-
   def self.ead_rake_xml(file)
     raw = File.read(file)
     raw.gsub!(/xmlns=".*"/, '')

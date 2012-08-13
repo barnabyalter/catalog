@@ -1,39 +1,36 @@
 module ComponentsHelper
 
-
   def parent_ead_id
     parts = params[:id].split(":")
     return parts[0]
   end
 
-  def continue_components(document)
+  def continue_components
     if @components.nil?
-      next_component_button(document)
+      next_component_button
     else
-      if @components.has_key?(document[:ref].to_sym)
-        render :partial => "components/show", :locals => { :documents => @components[document[:ref].to_sym] }
+      if @components.has_key?(@document[:ref_s].to_sym)
+        render :partial => "components/show", :locals => { :documents => @components[@document[:ref_s].to_sym] }
       else
-        next_component_button(document)
+        next_component_button
       end
     end
   end
 
-  def next_component_button(document)
-    results = String.new
-    if document["component_children_b"]
-      level = document[:component_level].to_i + 1
+  def next_component_button(results = String.new)
+    if @document["component_children_b"]
+      level = @document[:component_level_i].to_i + 1
       results << link_to( image_tag("icons/button_open.png", :alt => "+ Show"),
-        components_path( :parent_ref => document[:ref], :ead_id => document[:ead_id], :component_level => level ),
+        components_path( :parent_ref => @document[:ref_s], :ead_id => @document[:eadid_s], :component_level => level ),
         :title => "Click to open",
-        :id => "#{document[:ref]}-switch",
+        :id => "#{@document[:ref_s]}-switch",
         :remote => true,
-        :onclick => "showWaiting('#{document[:ref]}');")
+        :onclick => "showWaiting('#{@document[:ref_t]}');")
     end
     return results.html_safe
   end
 
-  def hide_component_button
-    results = String.new
+  def hide_component_button(results = String.new)
     if params[:component_level].to_i > 1
       results << link_to( image_tag("icons/button_close.png", :alt => "- Hide"),
         components_hide_path(:ead_id => params[:ead_id], :component_level => params[:component_level], :parent_ref => params["parent_ref"]),
@@ -45,38 +42,20 @@ module ComponentsHelper
     return results.html_safe
   end
 
-  def render_component_field(document,field,opts={})
-    results = String.new
-    if opts[:label]
-      label = opts[:label]
-    else
-      if document[(field.to_s + "_label").to_sym].nil?
-        label = Rails.configuration.rockhall_config[:component_fields][field.to_sym][:label].to_s
-      else
-        label = document[(field.to_s + "_label")].to_s
-      end
-    end
-    unless document[field.to_s].nil?
+  def render_component_field(field,opts={},results = String.new)
+    label = opts[:label] ? opts[:label] : determine_label(field)
+    unless @document[(field + "_t")].nil?
       results << "<dt>" + label + ":</dt>"
-      results << "<dd class=\"#{field.to_s}\">" + display_field(document[field.to_s]) + "</dd>"
+      results << "<dd><p>" + @document[(field + "_t")].join("</p><p>") + "</p></dd>"
     end
     return results.html_safe
   end
 
-  def render_odd_field(document)
-    results = String.new
-    unless document["odd_display"].nil?
-      document["odd_display"].each_index do |i|
-        results << "<dt>" + document["odd_display_label"][i] + ":</dt>"
-        results << "<dd class=\"odd_display\">" + document["odd_display"][i] + "</dd>"
-      end
-    end
-    return results.html_safe
-
+  def determine_label(field)
+    @document[(field + "_label_heading")] ? @document[(field + "_label_heading")] : field.titleize
   end
 
-  def highlight?(ref)
-    results = String.new
+  def highlight?(ref, results = String.new)
     if params[:solr_id]
       parts = params[:solr_id].split(":")
       if ref.to_s == parts.last.to_s
