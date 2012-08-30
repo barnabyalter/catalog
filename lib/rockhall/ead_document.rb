@@ -38,13 +38,6 @@ class Rockhall::EadDocument < SolrEad::Document
 
     t.collection(:path=>"archdesc/did/unittitle", :index_as=>[:facetable, :displayable, :searchable])
 
-    # Biography/History section
-    t.bioghist {
-      t.head
-      t.cronlist
-      t.p
-    }
-
     # General field available within archdesc
     t.accessrestrict(:path=>"archdesc/accessrestrict/p")
     t.accessrestrict_label(:path=>"archdesc/accessrestrict/head", :index_as=>[:not_searchable, :z])
@@ -58,6 +51,8 @@ class Rockhall::EadDocument < SolrEad::Document
     t.appraisal_label(:path=>"archdesc/appraisal/head", :index_as=>[:not_searchable, :z])
     t.arrangement(:path=>"archdesc/arrangement/p")
     t.arrangement_label(:path=>"archdesc/arrangement/head", :index_as=>[:not_searchable, :z])
+    t.bioghist(:path=>"archdesc/bioghist/p")
+    t.bioghist_label(:path=>"archdesc/bioghist/head", :index_as=>[:not_searchable, :z])
     t.custodhist(:path=>"archdesc/custodhist/p")
     t.custodhist_label(:path=>"archdesc/custodhist/head", :index_as=>[:not_searchable, :z])
     t.fileplan(:path=>"archdesc/fileplan/p")
@@ -83,12 +78,10 @@ class Rockhall::EadDocument < SolrEad::Document
 
   def to_solr(solr_doc = Hash.new)
     super(solr_doc)
-    #solr_doc.merge!({"id"                => self.eadid.first})
-    #solr_doc.merge!({"eadid_s"           => self.eadid.first})
-    #solr_doc.merge!({"xml_s"             => self.to_xml})
-    solr_doc.merge!({"format"            => "Archival Collection"})
-    solr_doc.merge!({"heading_display"   => ("Guide to the " + self.title.first.gsub!(self.title_num.first,"").strip)})
-    solr_doc.merge!({"unitdate_z"        => ead_date_display})
+    solr_doc.merge!({"xml_display"     => self.to_xml})
+    solr_doc.merge!({"format"          => "Archival Collection"})
+    solr_doc.merge!({"heading_display" => ("Guide to the " + self.title.first.gsub!(self.title_num.first,"").strip)})
+    solr_doc.merge!({"unitdate_z"      => ead_date_display})
 
     # *_heading is dynamic un-indexed, single string... it's a bit misleading and should be changed
 
