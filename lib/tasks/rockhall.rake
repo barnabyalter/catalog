@@ -9,9 +9,9 @@ namespace :ead do
     raise "Please specify your ead, ex. FILE=<path/to/ead.xml" unless ENV['FILE']
     indexer = SolrEad::Indexer.new(:document=>Rockhall::EadDocument, :component=>Rockhall::EadComponent)
     indexer.update(ENV['FILE'])
-    Rockhall::XsltBehaviors.ead_to_html(ENV['FILE'])
+    Rockhall::Indexing.ead_to_html(ENV['FILE'])
     id = File.basename(ENV['FILE']).gsub(/\.xml$/,"")
-    Rockhall::XsltBehaviors.toc_to_json(id)
+    Rockhall::Indexing.toc_to_json(id)
   end
 
   desc "Index a directory of ead files using RockhallDocument"
@@ -22,9 +22,9 @@ namespace :ead do
       print "Indexing #{File.basename(file)}..."
       if File.extname(file).match("xml$")
         indexer.update(file)
-        Rockhall::XsltBehaviors.ead_to_html(file)
+        Rockhall::Indexing.ead_to_html(file)
         id = File.basename(file).gsub(/\.xml$/,"")
-        Rockhall::XsltBehaviors.toc_to_json(id)
+        Rockhall::Indexing.toc_to_json(id)
       end
       print "done.\n"
     end
