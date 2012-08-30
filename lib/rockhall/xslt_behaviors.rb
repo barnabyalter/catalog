@@ -6,9 +6,18 @@ module Rockhall::XsltBehaviors
     xsl_file = File.join(Rails.root, "xsl", "ead_to_html.xsl")
     xsl = Nokogiri::XSLT(File.read(xsl_file))
     html = Nokogiri(File.read(file))
-    name = "_" + File.basename(file).gsub(/\..*$/,"").gsub(/-/,"_").downcase
-    dst = File.join(Rails.root, "public", "fa", name)
-    File.open(dst, "w") { |f| f << xsl.apply_to(html).to_s }
+    dst = File.join(Rails.root, "public", "fa", File.basename(file)).gsub(/\.xml$/,".html")
+    File.open(dst, "w") { |f| f << cleanup_xml(xsl.apply_to(html).to_s) }
+  end
+
+  def self.cleanup_xml(results)
+    results.gsub!(/<title/,"<span")
+    results.gsub!(/<\/title/,"</span")
+    results.gsub!(/&lt;title/,"<span")
+    results.gsub!(/&lt;\/title/,"</span")
+    results.gsub!(/&gt;/,">")
+    results.gsub!(/render=/,"class=")
+    return results
   end
 
 
