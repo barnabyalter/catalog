@@ -1,22 +1,20 @@
 module Rockhall::EadBehaviors
 
   def ead_accession_range(input, results = Array.new)
-
     return results if input.empty?
     range = input.first
 
     # Catch incorrectly formatted ranges
-    if range.match(";")
-      raise "Bad accession range"
+    if range.match(/[;()B-Z]/)
+      logger.warn("Bad accession range: " + input.to_s)
+      return results
     end
-
 
     first, last = range.split(/-/)
     numbers = range.split(/,/)
 
     if numbers.length > 1
       numbers.each do |n|
-
       first, last = n.split(/-/)
         if last
           fparts = first.strip.split(/\./)
@@ -25,7 +23,6 @@ module Rockhall::EadBehaviors
         else
           results << n.strip
         end
-
       end
     elsif last
       fparts = first.strip.split(/\./)
@@ -36,7 +33,6 @@ module Rockhall::EadBehaviors
     end
 
     return results
-
   end
 
   def ead_date_display(parts = Array.new)
