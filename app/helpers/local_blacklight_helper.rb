@@ -24,7 +24,9 @@ module LocalBlacklightHelper
 
   # overrides link_to_document to method to directly display the archival item within
   # the finding aid.
-  def link_to_document(doc, opts={:label=>nil, :counter => nil, :results_view => true})
+  #
+  # DEPRECATED
+  def deprecated_link_to_document(doc, opts={:label=>nil, :counter => nil, :results_view => true})
     label ||= blacklight_config.index.show_link.to_sym
     label = render_document_index_label doc, opts
     if doc[:format] == "Archival Item"

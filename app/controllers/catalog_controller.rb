@@ -5,7 +5,9 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include BlacklightHighlight::ControllerExtension
-  include Rockhall::EadSolrMethods
+  include Rockhall::ControllerBehaviors
+
+  before_filter :redirect_component_documents, :only => :show
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -195,28 +197,6 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
-  end
-
-  def show
-    ead_id = get_field_from_solr("eadid_s",params[:id])
-    if ead_id.nil?
-      super
-    else
-
-      @components = Hash.new
-      @components[:first] = get_component_docs_from_solr(ead_id,{ :level => "1"})
-      parent_ref_list = get_field_from_solr("parent_ids_display",params[:id])
-      unless parent_ref_list.nil?
-        parent_ref_list.each do |ref|
-          @components[ref.to_sym] = get_component_docs_from_solr(ead_id,{ :parent_ref => ref.to_s})
-        end
-      end
-
-      params[:solr_id] = params[:id]
-      params[:id] = ead_id
-      super
-
-    end
   end
 
 end

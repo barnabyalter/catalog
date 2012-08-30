@@ -20,6 +20,29 @@ module Rockhall::XsltBehaviors
     return results
   end
 
+  # Assembles a json file for the table of contents using what's in solr
+  def self.toc_to_json(id, results = Array.new)
+
+    doc_query = Hash.new
+    doc_query[:q]    = 'id:"' + id + '"'
+    doc_query[:qt]   = 'document'
+    doc_query[:rows] = 1
+
+    doc = Blacklight.solr.find(doc_query)["response"]["docs"].first
+
+    results << { "data" => "Top" }
+    [ "bioghist_label_z", "abstract_label_z", "relatedmaterial_label_z", "separatedmaterial_label_z", "accruals_label_z"].each do |label|
+      results << { "data" => doc[label], "metadata" => { "anchor" => ("#" + label.split(/_/).first) }} unless doc[label].nil?
+    end
+    results << { "data" => "Subject Headings",     "metadata" => { "anchor" => "#subjects" }}
+
+    collection = Rockhall::CollectionTree.new
+    collection.add_series(id)
+    results << collection
+
+    toc_dst = File.join(Rails.root, "public", "fa", (id + "_toc.json"))
+    File.open(toc_dst, "w") { |f| f << results.to_json }
+  end
 
 
 end

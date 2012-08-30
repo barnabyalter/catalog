@@ -274,7 +274,10 @@ div {
 
 #ead_sidebar { position: fixed; }
 
-#ead_toc {
+.ead_toc {
+  height: 400 px;
+  width: 230 px;
+  overflow: auto;
   position: relative;
   ol {
     vertical-align: baseline;
