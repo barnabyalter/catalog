@@ -20,6 +20,7 @@ public/plugin_assets/
 public/assets
 public/*.xml
 public/*.xml.gz
+public/fa/*
 
 gems/*
 
