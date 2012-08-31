@@ -97,7 +97,7 @@ class Rockhall::EadComponent < SolrEad::Component
     solr_doc.merge!({"location_display" => locations.join(", ")})
 
     # Build accession ranges
-    solr_doc.merge!({"accession_t" => ead_accession_range(self.accession)})
+    solr_doc.merge!({"accession_t" => ead_accession_range(self.accession.first)})
 
   end
 
