@@ -7,7 +7,6 @@ Feature: EAD display
 
   Scenario: Biographical Note and Administrative History (BL-5)
     Given I am on the ead page for ARC-0105
-    When I follow "Biographical Note"
     Then I should see "1911 May 18"
     And I should see "Born Joseph Vernon Turner, Jr. in Kansas City, Mo."
     And I should see "1939"
@@ -20,35 +19,31 @@ Feature: EAD display
 
   Scenario: Date Expression in first component level (BL-9)
     Given I am on the ead page for ARC-0105
-    When I follow "Collection Inventory"
-    Then I should see "Series II: Business Files, 1945-1946, 1983-1984, undated"
-    And I should see "Series VII: Publications, 1970-1990"
+    Then I should see "Business files, 1945-1946"
+    And I should see "Publications, 1970-1974"
 
   Scenario: Date expression in sub component level (BL-9) and accession numbers
-    Given I am on the ead page for ARC-0105:2:ref42
-    Then I should see "Series I: Awards and Certificates"
-    And I should see "Awards and certificates, 1976-1986"
+    Given I am on the ead page for ARC-0105
+    Then I should see "Awards and certificates, 1976-1986"
     And I should not see "Museum Accession Numbers:"
     And I should not see "A1994.4.10-A1994.4.22"
 
   Scenario: Names (BL-7, BL-147)
     Given I am on the ead page for ARC-0058
-    When I follow "Subject Headings"
     Then I should see "Alternative rock music"
 
   Scenario: Dimensions note (see BL-124)
-    Given I am on the ead page for ARC-0065:2:ref10
+    Given I am on the ead page for ARC-0065
     Then I should see "Limited Print Run"
     And I should see "Non-numbered edition of 200"
-    And I should see "Dimensions:"
     And I should see "ChromaDepth 3D image with required glass for viewing"
     And I should see "23"
     And I should see "29"
-    And I should see "Location:"
-    And I should see "Drawer-Folder: FF.1.4-7, Object: 1"
+    And I should see "Drawer-Folder:"
+    And I should see "FF.1.4-7,"
 
   Scenario: I need to see all sub-components (BL-58)
-    Given I am on the ead page for ARC-0065:2:ref62
+    Given I am on the ead page for ARC-0065
     Then I should see "Psycotic Pineapple, 1980 August 4-1980 September 15"
     And I should see "Ultras with Dick Dale, 1992 August 1"
 
@@ -62,15 +57,15 @@ Feature: EAD display
     Then I should see "A2005.31.15"
 
   Scenario: HTTP calls for components should still work (BL-55)
-    Given I am on the component page for ARC-0065:2:ref42
+    Given I am on the ead page for ARC-0065
     Then I should see "Psycotic Pineapple, 1980 August 4-1980 September 15"
 
   Scenario: Displaying italics (BL-33)
     Given I am on the ead page for ARC-0058
-    Then I should see "New Musical Express" in "italic"
-    And I should see "Love" in "italic"
+    Then I should see "New Musical Express" in italics
+    And I should see "Love" in italics
     Given I am on the ead page for ARC-0105
-    Then I should see "Blues Train" in "italic"
+    Then I should see "Blues Train" in italics
 
   Scenario: Separated materials notes (BL-43)
     Given I am on the ead page for ARC-0105
@@ -107,7 +102,7 @@ Feature: EAD display
     And I should not see "Immediate Source of Acquisition note"
     And I should see "Custodial History"
     Given I am on the ead page for ARC-0067
-    Then I should see "The Curtis Mayfield Collection was received by the Rock and Roll Hall of Fame and Museum as a gift from Curtis Mayfield in December 1994."
+    Then I should see "The Curtis Mayfield Collection was received from Mayfield on December 1994"
     And I should see "Custodial History"
 
   Scenario: Publisher note in finding aids (BL-142)
@@ -117,7 +112,7 @@ Feature: EAD display
   Scenario: Order and titles of EAD fields as they appear in Blacklight (BL-147)
     Given I am on the ead page for ARC-0003
     Then I should see "Dates:"
-    And I should see "Inclusive, 1928-2006, undated; Bulk, 1938-1969"
+    And I should see "Bulk, 1938-1969; Inclusive, 1928-2006, undated"
     And I should see "Custodial History"
     And I should not see "Custodial History note"
     And I should see "Subject Headings"
@@ -130,7 +125,7 @@ Feature: EAD display
     And I should see "Accruals"
 
   Scenario: Displaying multiple copies of an archival item (BL-202)
-    Given I am on the ead page for ARC-0006:4:ref216
+    Given I am on the ead page for ARC-0006
     Then I should see "Original Copy - Box: 5, Folder: 1, Object: 4"
     And I should see "Access Copy - Box: 1, Folder: 22, Object: 4"
 
@@ -150,13 +145,8 @@ Feature: EAD display
     And I should see "Incorporated as a Minnesota non-profit organization"
     And I should see "Holds first annual Eddie Cochran Weekend in Alberta Lea, Minn"
 
-  Scenario: Displaying text in bold
-    Given I am on the ead page for ARC-0005
-    Then I should see "EDDIE COCHRAN" in "bold"
-    And I should see "EDDIE COCHRAN HISTORICAL ORGANIZATION" in "bold"
-
   Scenario: Title nodes in ead (BL-209)
     Given I am on the ead page for ARC-0026
-    Then I should see "Normal As The Next Guy" in "italic"
+    Then I should see "Normal As The Next Guy" in italics
 
 

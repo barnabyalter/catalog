@@ -69,7 +69,6 @@
 
     </xsl:template>
 
-
     <xsl:template match="ead:head">
       <xsl:variable name="id" select="local-name(parent::*)"/>
       <xsl:choose>
@@ -88,6 +87,13 @@
       </xsl:choose>
     </xsl:template>
 
+    <!-- Format date display -->
+    <xsl:template match="ead:did/ead:unitdate">
+      <xsl:choose>
+        <xsl:when test="@type='inclusive'">Inclusive, <xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
+        <xsl:when test="@type='bulk'"><xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
+      </xsl:choose>
+    </xsl:template>
 
     <!-- Formats biography/history bits -->
     <xsl:template match="ead:chronlist">
@@ -187,17 +193,34 @@
 
     <xsl:template match="//ead:c/ead:did/ead:unittitle">
       <h3>
-        <xsl:value-of select="self::ead:unittitle"/>, <xsl:value-of select="following::ead:unitdate"/>
+        <xsl:apply-templates/>
+        <xsl:if test="self::ead:unittitle != ''">, </xsl:if>
+        <xsl:value-of select="following::ead:unitdate"/>
       </h3>
-      <xsl:if test="following-sibling::ead:container">Location: </xsl:if>
     </xsl:template>
 
     <xsl:template match="//ead:c/ead:did/ead:container">
-      <xsl:value-of select="self::ead:container/@type"/>: <xsl:value-of select="self::ead:container"/>,&#160;
+      <xsl:if test="self::ead:container/@label != ''">
+        <p>Type: <xsl:value-of select="self::ead:container/@label"/></p>
+      </xsl:if>
+      <xsl:value-of select="self::ead:container/@type"/>: <xsl:value-of select="self::ead:container"/>
+      <xsl:if test="following-sibling::ead:container != ''">,&#160;</xsl:if></xsl:if>
     </xsl:template>
 
     <!-- empty template to skip unitdate since it's dealt with in unittitle -->
     <xsl:template match="//ead:c/ead:did/ead:unitdate"/>
+    <!-- supress all accession numbers -->
+    <!--
+    <xsl:template match="//ead:c/ead:odd">
+      <xsl:choose>
+        <xsl:when test="contains(., 'Museum Accession Number')"> </xsl:when>
+        <xsl:otherwise> <xsl:apply-templates/> </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    -->
+    <!-- supress only accession numbers marked as internal -->
+    <xsl:template match="//ead:c/ead:odd[@audience='internal']"/>
+
 
 
     <!-- Random things... -->
