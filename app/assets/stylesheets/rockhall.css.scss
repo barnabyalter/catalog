@@ -278,5 +278,14 @@ div {
     padding-left: 50px;
     text-indent: -25px;
   }
+  #dsc {
+    h3 {
+      margin: 0;
+      padding: 0;
+    }
+    p, h5 {
+      padding-left: 12px;
+    }
+  }
 }
 

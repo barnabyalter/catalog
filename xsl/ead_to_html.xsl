@@ -80,6 +80,14 @@
       </xsl:choose>
     </xsl:template>
 
+    <!-- Anything in the xml <p> tag, gets am html <p> tag -->
+    <xsl:template match="ead:p">
+      <xsl:choose>
+        <xsl:when test="ancestor::ead:c"><p><xsl:apply-templates/></p></xsl:when>
+        <xsl:otherwise><p><xsl:apply-templates/></p></xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+
 
     <!-- Formats biography/history bits -->
     <xsl:template match="ead:chronlist">
@@ -123,10 +131,7 @@
       <xsl:text>&#160;</xsl:text>
     </xsl:template>
 
-    <!-- Anything in the xml <p> tag, gets am html <p> tag -->
-    <xsl:template match="ead:p">
-      <p><xsl:apply-templates/></p>
-    </xsl:template>
+
 
 
     <!-- Format for html display -->
@@ -181,9 +186,9 @@
 
 
     <xsl:template match="//ead:c/ead:did/ead:unittitle">
-      <h5>
+      <h3>
         <xsl:value-of select="self::ead:unittitle"/>, <xsl:value-of select="following::ead:unitdate"/>
-      </h5>
+      </h3>
       <xsl:if test="following-sibling::ead:container">Location: </xsl:if>
     </xsl:template>
 
