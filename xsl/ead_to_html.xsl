@@ -8,16 +8,17 @@
     <xsl:output indent="yes" method="html"/>
     <!-- <xsl:include href="/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/xsl/lookupLists.xsl"/> -->
 
-    <!-- Creates the html partial of the finding aid.-->
+    <!-- Creates the html partial of the finding aid -->
     <xsl:template match="/">
       <div id="ead_body">
-        <!-- General information section appears in horizontal format using <dl> -->
+
+        <!-- General information section displays fields from archdesc in horizontal format using <dl> -->
         <h2>General Information</h2>
         <dl class="defList">
           <dt>Title:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:unittitle"/></dd>
           <dt>Extent:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:physdesc"/></dd>
+          <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:physdesc/ead:extent"/></dd>
           <dt>Dates:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:unitdate"/></dd>
           <dt>Language of Finding Aid:</dt>
@@ -36,9 +37,11 @@
           <dd><xsl:apply-templates select="//ead:archdesc/ead:processinfo/ead:p"/></dd>
         </dl>
 
+        <!-- Other sections of archdesc are displayed in paragraph format -->
         <h2 id="abstract">Collection Overview</h2>
         <p><xsl:apply-templates select="//ead:archdesc/ead:did/ead:abstract"/></p>
 
+        <!-- These sections get display names from ead:head -->
         <xsl:apply-templates select="//ead:archdesc/ead:bioghist"/>
         <xsl:apply-templates select="//ead:archdesc/ead:relatedmaterial"/>
         <xsl:apply-templates select="//ead:archdesc/ead:separatedmaterial"/>
@@ -68,7 +71,15 @@
       </div>
 
     </xsl:template>
+    <!-- End of the html page -->
 
+    <!--
+      Templates start here. Those that affect the display and formating of nodes over
+      the the entire document come first, followed by those that pertain to nodes
+      within specific sections of the document.
+    -->
+
+    <!-- EAD headings -->
     <xsl:template match="ead:head">
       <xsl:variable name="id" select="local-name(parent::*)"/>
       <xsl:choose>
@@ -79,23 +90,77 @@
       </xsl:choose>
     </xsl:template>
 
-    <!-- Anything in the xml <p> tag, gets am html <p> tag -->
+    <!-- EAD paragraphs -->
     <xsl:template match="ead:p">
-      <xsl:choose>
-        <xsl:when test="ancestor::ead:c"><p><xsl:apply-templates/></p></xsl:when>
-        <xsl:otherwise><p><xsl:apply-templates/></p></xsl:otherwise>
-      </xsl:choose>
+      <p><xsl:apply-templates/></p>
     </xsl:template>
 
-    <!-- Format date display -->
-    <xsl:template match="ead:did/ead:unitdate">
-      <xsl:choose>
-        <xsl:when test="@type='inclusive'">Inclusive, <xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
-        <xsl:when test="@type='bulk'"><xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
-      </xsl:choose>
+    <!-- EAD dates: Contenate multiple unitdate fields together -->
+    <xsl:template match="ead:unitdate">
+      <span class="unitdate">
+        <xsl:choose>
+          <xsl:when test="@type='inclusive'">Inclusive, <xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
+          <xsl:when test="@type='bulk'"><xsl:apply-templates/><xsl:if test="following-sibling::ead:unitdate != ''">; </xsl:if></xsl:when>
+          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+        </xsl:choose>
+      </span>
     </xsl:template>
 
-    <!-- Formats biography/history bits -->
+    <!-- Component nodes -->
+    <xsl:template match="ead:c">
+      <xsl:variable name="id" select="@id"/>
+      <xsl:variable name="depth" select="count(ancestor::ead:c) + 1"/>
+      <div id="{$id}" class="component_part clearfix c0{$depth}">
+
+        <!-- Each field in the component gets formatted here -->
+        <h3>
+          <xsl:apply-templates select="ead:did/ead:unittitle"/>
+          <xsl:if test="ead:did/ead:unittitle != '' and ead:did/ead:unitdate">
+            ,&#160;
+          </xsl:if>
+          <xsl:apply-templates select="ead:did/ead:unitdate"/>
+        </h3>
+        <dl class="defList">
+          <xsl:apply-templates select="ead:did/ead:container"/>
+          <xsl:if test="ead:did/ead:langmaterial/ead:language/@langcode">
+            <dt>Language:</dt>
+            <dd><xsl:apply-templates select="ead:did/ead:langmaterial/ead:language/@langcode"/></dd>
+          </xsl:if>
+        </dl>
+        <xsl:apply-templates select="ead:scopecontent" />
+        <xsl:apply-templates select="ead:accessrestrict" />
+        <xsl:apply-templates select="ead:odd" />
+        <xsl:apply-templates select="ead:separatedmaterial" />
+
+        <!-- pass along any child component for further processing -->
+        <xsl:apply-templates select="ead:c"/>
+      </div>
+
+    </xsl:template>
+
+    <!--
+    <xsl:template match="ead:c/ead:did/ead:unittitle">
+      <h3><xsl:apply-templates/></h3>
+    </xsl:template>
+    -->
+
+    <xsl:template match="ead:container">
+      <xsl:variable name="id" select="@id"/>
+      <xsl:if test="@id !=''">
+        <dt>Location:</dt>
+        <dd><xsl:value-of select="@type" />&#160;<xsl:value-of select="self::ead:container" />&#160;<xsl:value-of select="following-sibling::ead:container/@type" />&#160;<xsl:value-of select="following-sibling::ead:container" />&#160;(<xsl:value-of select="@label" />)</dd>
+      </xsl:if>
+    </xsl:template>
+
+
+
+    <!-- Puts a space between multiple nodes -->
+    <xsl:template match="ead:extent">
+      <xsl:apply-templates/>
+      <xsl:text>&#160;</xsl:text>
+    </xsl:template>
+
+    <!-- bioghist bits... -->
     <xsl:template match="ead:chronlist">
       <dl class="defList"><xsl:apply-templates/></dl>
     </xsl:template>
@@ -131,16 +196,24 @@
       <li><a href="/"><xsl:apply-templates/></a></li>
     </xsl:template>
 
-    <!-- Puts a space between multiple nodes -->
-    <xsl:template match="ead:extent | ead:unitdate">
-      <xsl:apply-templates/>
-      <xsl:text>&#160;</xsl:text>
+    <!-- empty template to skip unitdate since it's dealt with in unittitle
+    <xsl:template match="//ead:c/ead:did/ead:unitdate"/>
+    -->
+    <!-- supress all accession numbers -->
+    <!--
+    <xsl:template match="//ead:c/ead:odd">
+      <xsl:choose>
+        <xsl:when test="contains(., 'Museum Accession Number')"> </xsl:when>
+        <xsl:otherwise> <xsl:apply-templates/> </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
+    -->
+    <!-- supress nodes marked as internal -->
+    <xsl:template match="*[@audience='internal']"/>
 
+    <!-- General templates for formatting html -->
 
-
-
-    <!-- Format for html display -->
+    <!-- Translate ead text formatting into html -->
     <xsl:template match="*[@render = 'bold'] | *[@altrender = 'bold'] ">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong><xsl:apply-templates/></strong>
     </xsl:template>
@@ -180,48 +253,6 @@
     <xsl:template match="*[@render = 'underline'] | *[@altrender = 'underline']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><span class="underline"><xsl:apply-templates/></span>
     </xsl:template>
-
-
-    <!-- Non-numbered components -->
-
-    <xsl:template match="ead:c">
-      <xsl:variable name="id" select="@id"/>
-      <xsl:variable name="depth" select="count(ancestor::ead:c) + 1"/>
-      <div id="{$id}" class="component_part clearfix c0{$depth}"><xsl:apply-templates/></div>
-    </xsl:template>
-
-
-    <xsl:template match="//ead:c/ead:did/ead:unittitle">
-      <h3>
-        <xsl:apply-templates/>
-        <xsl:if test="self::ead:unittitle != ''">, </xsl:if>
-        <xsl:value-of select="following::ead:unitdate"/>
-      </h3>
-    </xsl:template>
-
-    <xsl:template match="//ead:c/ead:did/ead:container">
-      <xsl:if test="self::ead:container/@label != ''">
-        <p>Type: <xsl:value-of select="self::ead:container/@label"/></p>
-      </xsl:if>
-      <xsl:value-of select="self::ead:container/@type"/>: <xsl:value-of select="self::ead:container"/>
-      <xsl:if test="following-sibling::ead:container != ''">,&#160;</xsl:if></xsl:if>
-    </xsl:template>
-
-    <!-- empty template to skip unitdate since it's dealt with in unittitle -->
-    <xsl:template match="//ead:c/ead:did/ead:unitdate"/>
-    <!-- supress all accession numbers -->
-    <!--
-    <xsl:template match="//ead:c/ead:odd">
-      <xsl:choose>
-        <xsl:when test="contains(., 'Museum Accession Number')"> </xsl:when>
-        <xsl:otherwise> <xsl:apply-templates/> </xsl:otherwise>
-      </xsl:choose>
-    </xsl:template>
-    -->
-    <!-- supress only accession numbers marked as internal -->
-    <xsl:template match="//ead:c/ead:odd[@audience='internal']"/>
-
-
 
     <!-- Random things... -->
     <xsl:template match="text()[not(string-length(normalize-space()))]"/>
