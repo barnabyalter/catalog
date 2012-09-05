@@ -58,16 +58,16 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_display',           :label => 'Title:'
-    config.add_index_field 'author_display',          :label => 'Author:'
-    config.add_index_field 'format',                  :label => 'Format:'
-    config.add_index_field 'language_language',       :label => 'Language:'
-    config.add_index_field 'publisher_display',       :label => 'Publisher:'
-    config.add_index_field 'lc_callnum_display',      :label => 'Call Number:'
-    config.add_index_field 'unitdate_display',        :label => 'Dates:'
-    config.add_index_field 'collection_display',      :label => 'Archival Collection:'
-    config.add_index_field 'parent_unittitle_list',   :label => 'Series:'
-    config.add_index_field 'location_display',        :label => 'Location:'
+    config.add_index_field 'title_display',             :label => 'Title:'
+    config.add_index_field 'author_display',            :label => 'Author:'
+    config.add_index_field 'format',                    :label => 'Format:'
+    config.add_index_field 'language_language',         :label => 'Language:'
+    config.add_index_field 'publisher_display',         :label => 'Publisher:'
+    config.add_index_field 'lc_callnum_display',        :label => 'Call Number:'
+    config.add_index_field 'unitdate_display',          :label => 'Dates:'
+    config.add_index_field 'collection_display',        :label => 'Archival Collection:'
+    config.add_index_field 'parent_unittitles_display', :label => 'Series:'
+    config.add_index_field 'location_display',          :label => 'Location:'
 
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
