@@ -80,7 +80,7 @@ class Rockhall::EadComponent < SolrEad::Component
     # <odd> nodes
     # These guys depend on what's in <head> so we do some xpathy stuff...
     t.general_note(:path=>'odd[./head="General note"]/p')
-    t.accession(:path=>'odd[./head="Museum Accession Number"]/p', :index_as => [:not_searchable, :string])
+    t.accession(:path=>'odd[./head[starts-with(.,"Museum Accession")]]/p', :index_as => [:not_searchable, :string])
 
 
   end
