@@ -9,12 +9,13 @@ Feature: Catalog Home Page
     Given I am on the home page
     Then I should see a facet for "Format"
     And I should see a facet for "Archival Material"
+    And I should see a facet for "Publication Year"
     And I should see a facet for "Collection Name"
     And I should see a facet for "Topic"
     And I should see a facet for "Name"
     And I should see a facet for "Event/Series"
     And I should see a facet for "Genre"
-    And I should see a facet for "Collection Name"
+
 
   Scenario: Terms for "Format" facet (BL-15)
     Given I am on the home page

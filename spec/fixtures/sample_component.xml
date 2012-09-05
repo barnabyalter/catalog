@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<c id="ref214" level="file">
+  <did>
+    <unittitle>Internal Revenue Service Form W-4 [RESTRICTED]</unittitle>
+    <langmaterial>
+      <language langcode="eng"/>
+    </langmaterial>
+    <container id="cid605001" type="Box" label="Original Copy">5</container>
+    <container parent="cid605001" type="Folder">1</container>
+    <container parent="cid605001" type="Object">1-2</container>
+    <container id="cid871002" type="Box" label="Access Copy">1B</container>
+    <container parent="cid871002" type="Folder">22</container>
+    <container parent="cid871002" type="Object">1-2</container>
+    <unitdate>1958 June 3</unitdate>
+  </did>
+  <accessrestrict id="ref1188">
+    <head>Access Restrictions</head>
+    <p>This item is confidential and, therefore, is RESTRICTED. A redacted access copy is available.</p>
+  </accessrestrict>
+</c>

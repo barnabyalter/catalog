@@ -22,9 +22,9 @@ class Rockhall::EadComponent < SolrEad::Component
 
     # Archival material
     t.container(:attributes=>{ :type => "Box" }, :index_as => [:not_searchable, :not_displayable]) {
-      t.label(:path=>{ :attribute=>"label" }, :index_as => [:facetable])
+      t.label(:path=>{ :attribute=>"label" })
     }
-    t.material(:proxy=>[:container, :label])
+    t.material(:proxy=>[:container, :label], :index_as => [:facetable])
 
     # These terms are proxied to match with Blacklight's default facets, but otherwise
     # you can remove them or rename the above facet terms to match with your solr
@@ -71,9 +71,11 @@ class Rockhall::EadComponent < SolrEad::Component
     t.container {
       t.label(:path => {:attribute=>"label"})
       t.type(:path => {:attribute=>"type"})
+      t.id(:path => {:attribute=>"id"})
     }
     t.container_label(:proxy=>[:container, :label])
     t.container_type(:proxy=>[:container, :type])
+    t.container_id(:proxy=>[:container, :id])
 
     # <odd> nodes
     # These guys depend on what's in <head> so we do some xpathy stuff...
@@ -85,20 +87,28 @@ class Rockhall::EadComponent < SolrEad::Component
 
   def to_solr(solr_doc = Hash.new)
     super(solr_doc)
-    solr_doc.merge!({"xml_display"     => self.to_xml})
-    solr_doc.merge!({"format"          => "Archival Item"})
-    solr_doc.merge!({"heading_display" => [ solr_doc["parent_unittitles_display"], self.title.first ].join(" >> ")  })
+    solr_doc.merge!({"xml_display"      => self.to_xml})
+    solr_doc.merge!({"format"           => "Archival Item"})
+    solr_doc.merge!({"heading_display"  => [ solr_doc["parent_unittitles_display"], self.title.first ].join(" >> ")  })
+    solr_doc.merge!({"material_facet"   => self.material  })
+    solr_doc.merge!({"location_display" => self.location_display })
+    solr_doc.merge!({"accession_t"      => ead_accession_range(self.accession.first)})
+  end
 
-    # Assemble location_display
-    locations = Array.new
-    self.container_type.each_index do |i|
-      locations << self.container_type[i] + ": " + self.container[i]
+  def location_display(locations = Array.new)
+    self.container_id.each do |id|
+      line = String.new
+      line << (self.find_by_xpath("//container[@id = '#{id}']/@type").text + ": ")
+      line << self.find_by_xpath("//container[@id = '#{id}']").text
+      sub_containers = Array.new
+      self.find_by_xpath("//container[@parent = '#{id}']").each do |sub|
+        sub_containers << sub.attribute("type").text + ": " + sub.text
+      end
+      line << (", " + sub_containers.join(", ") ) unless sub_containers.empty?
+      line << " (" + self.find_by_xpath("//container[@id = '#{id}']/@label").text + ")"
+      locations << line
     end
-    solr_doc.merge!({"location_display" => locations.join(", ")})
-
-    # Build accession ranges
-    solr_doc.merge!({"accession_t" => ead_accession_range(self.accession.first)})
-
+    return locations
   end
 
 end

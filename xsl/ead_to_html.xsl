@@ -174,6 +174,7 @@
             <xsl:value-of select="@type" />: <xsl:value-of select="self::ead:container" />
             <xsl:if test="not(position() = last())">, </xsl:if>
           </xsl:for-each>
+          (<xsl:value-of select="@label" />)
         </dd>
       </xsl:if>
     </xsl:template>
