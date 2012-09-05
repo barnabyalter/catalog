@@ -6,7 +6,7 @@ Feature: Error messages
 
   Scenario: User enters an id that doesn't exist (BL-178)
     Given I am on the bib record page for bogus_id
-    Then I should see "Resource id bogus_id was not found or is unavailable"
+    Then I should see "Sorry, you have requested a record that doesn't exist."
 
   Scenario: User enters a bogus url (BL-178)
     Given I am on the bib record page for asd/asdflkj
