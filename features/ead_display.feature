@@ -126,10 +126,8 @@ Feature: EAD display
 
   Scenario: Displaying multiple copies of an archival item (BL-202)
     Given I am on the ead page for ARC-0006
-    Then I should see "Access Copy:"
-    And I should see "Box: 1B, Folder: 22, Object: 3"
-    And I should see "Original Copy:"
-    And I should see "Box: 5, Folder: 1, Object: 3"
+    Then I should see "Box: 5, Folder: 1, Object: 1-2 (Original Copy)"
+    And I should see "Box: 1B, Folder: 22, Object: 1-2 (Access Copy)"
     And I should not see "Box: 1B, Folder: 22, Object: 3, Box: 5, Folder: 1, Object: 3"
 
   Scenario: Processing information note (BL-196)
