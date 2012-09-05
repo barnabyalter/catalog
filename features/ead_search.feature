@@ -10,7 +10,7 @@ Feature: EAD display
     Given I am on the home page
     And I fill in "q" with "A2005.31.15"
     When I press "search"
-    Then I should see "Jermaine Rogers Collection (ARC.0058)"
+    Then I should see "Jermaine Rogers Posters"
 
   Scenario: Searching by accession number (BL-49)
     Given I am on the home page
