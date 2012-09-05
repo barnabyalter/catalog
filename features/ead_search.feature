@@ -16,7 +16,7 @@ Feature: EAD display
     Given I am on the home page
     And I fill in "q" with "A1994.34.7"
     When I press "search"
-    Then I should see "Guide to the Curtis Mayfield Collection (ARC.0067)"
+    Then I should see "Curtis Mayfield Collection"
     And I should see "Photographs"
 
   Scenario: Searching by accession number (BL-49)
@@ -30,7 +30,7 @@ Feature: EAD display
     And I fill in "q" with "Negatives"
     When I press "search"
     Then I should see "Negatives"
-    And I should see "Curtis Mayfield Collection (ARC.0067)"
+    And I should see "Curtis Mayfield Collection"
     And I should not see "Book: Poetic License: In Poem and Song"
 
   Scenario: Series components suppressed from search results (BL-55, BL-67)
@@ -46,7 +46,7 @@ Feature: EAD display
     And I fill in "q" with "Negatives"
     When I press "search"
     Then I should not see "Finding Aid"
-    And I should see "Guide to the Curtis Mayfield Collection"
+    And I should see "Curtis Mayfield Collection"
     And I should see "Negatives and transparencies"
 
   Scenario: Suppress status display from ead-related items (BL-103)
