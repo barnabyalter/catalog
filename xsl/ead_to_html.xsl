@@ -113,24 +113,43 @@
       <div id="{$id}" class="component_part clearfix c0{$depth}">
 
         <!-- Each field in the component gets formatted here -->
-        <h3>
-          <xsl:apply-templates select="ead:did/ead:unittitle"/>
-          <xsl:if test="ead:did/ead:unittitle != '' and ead:did/ead:unitdate">
-            ,&#160;
-          </xsl:if>
-          <xsl:apply-templates select="ead:did/ead:unitdate"/>
-        </h3>
+        <h3><xsl:apply-templates select="ead:did/ead:unittitle"/><xsl:if test="ead:did/ead:unittitle != '' and ead:did/ead:unitdate">, </xsl:if><xsl:apply-templates select="ead:did/ead:unitdate"/></h3>
         <dl class="defList">
+
+          <!-- container field -->
           <xsl:apply-templates select="ead:did/ead:container"/>
-          <xsl:if test="ead:did/ead:langmaterial/ead:language/@langcode">
-            <dt>Language:</dt>
-            <dd><xsl:apply-templates select="ead:did/ead:langmaterial/ead:language/@langcode"/></dd>
-          </xsl:if>
+
+          <!-- language field -->
+          <xsl:for-each select="ead:did/ead:langmaterial">
+            <xsl:choose>
+              <xsl:when test="not(child::ead:language)">
+                <dt>Language:</dt>
+                <dd><xsl:apply-templates select="."/></dd>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:for-each>
+
+          <!-- physical description field -->
+          <xsl:for-each select="ead:did/ead:physdesc">
+            <xsl:choose>
+              <xsl:when test="child::ead:dimensions">
+                <dt>Dimensions:</dt>
+                <dd><xsl:apply-templates select="child::ead:dimensions"/></dd>
+              </xsl:when>
+              <xsl:otherwise>
+                <dt>Physical Description:</dt>
+                <dd><xsl:apply-templates select="."/></dd>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:for-each>
         </dl>
+
+        <!-- other fields outside of <did> -->
         <xsl:apply-templates select="ead:scopecontent" />
         <xsl:apply-templates select="ead:accessrestrict" />
         <xsl:apply-templates select="ead:odd" />
         <xsl:apply-templates select="ead:separatedmaterial" />
+        <xsl:apply-templates select="ead:originalsloc" />
 
         <!-- pass along any child component for further processing -->
         <xsl:apply-templates select="ead:c"/>
@@ -148,7 +167,14 @@
       <xsl:variable name="id" select="@id"/>
       <xsl:if test="@id !=''">
         <dt>Location:</dt>
-        <dd><xsl:value-of select="@type" />&#160;<xsl:value-of select="self::ead:container" />&#160;<xsl:value-of select="following-sibling::ead:container/@type" />&#160;<xsl:value-of select="following-sibling::ead:container" />&#160;(<xsl:value-of select="@label" />)</dd>
+        <dd>
+          <xsl:value-of select="@type" />: <xsl:value-of select="self::ead:container" />
+          <xsl:if test="following-sibling::ead:container">, </xsl:if>
+          <xsl:for-each select="following-sibling::ead:container[@parent=$id]">
+            <xsl:value-of select="@type" />: <xsl:value-of select="self::ead:container" />
+            <xsl:if test="not(position() = last())">, </xsl:if>
+          </xsl:for-each>
+        </dd>
       </xsl:if>
     </xsl:template>
 

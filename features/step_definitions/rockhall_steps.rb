@@ -59,6 +59,10 @@ Then /^I should see "(.*?)" in italics$/ do |arg1|
   page.should have_xpath("//*/em", :text => arg1)
 end
 
+Then /^I should see "(.*?)" in italics with a span tag$/ do |arg1|
+  page.should have_xpath("//*/span[contains(@class, 'italic')]", :text => arg1)
+end
+
 Then /^I should see "(.*?)" in bold$/ do |arg1|
   page.should have_xpath("//*/strong", :text => arg1)
 end
