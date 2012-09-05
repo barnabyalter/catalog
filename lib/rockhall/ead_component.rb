@@ -87,12 +87,13 @@ class Rockhall::EadComponent < SolrEad::Component
 
   def to_solr(solr_doc = Hash.new)
     super(solr_doc)
-    solr_doc.merge!({"xml_display"        => self.to_xml})
-    solr_doc.merge!({"format"             => "Archival Item"})
-    solr_doc.merge!({"material_facet"     => self.material  })
-    solr_doc.merge!({"location_display"   => self.location_display })
-    solr_doc.merge!({"accession_t"        => ead_accession_range(self.accession.first)})
-    solr_doc.merge!({"collection_display" => solr_doc["document_unittitle_display"] })
+    solr_doc.merge!({"xml_display"         => self.to_xml})
+    solr_doc.merge!({"format"              => "Archival Item"})
+    solr_doc.merge!({"material_facet"      => self.material  })
+    solr_doc.merge!({"location_display"    => self.location_display })
+    solr_doc.merge!({"accession_t"         => ead_accession_range(self.accession.first)})
+    solr_doc.merge!({"collection_display"  => solr_doc["document_unittitle_display"] })
+    solr_doc.merge!({"title_t"             => [self.title, solr_doc["parent_unittitles_display"]].flatten })
   end
 
   def location_display(locations = Array.new)
