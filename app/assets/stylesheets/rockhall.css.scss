@@ -147,6 +147,21 @@ a {
   width: 1100px;
 }
 
+#bd {
+
+  margin-left: 10px;
+  margin-right: 10px;
+
+  #main {
+    padding-left: 10px;
+  }
+
+  #sidebar {
+    width: 23%;
+  }
+
+}
+
 #main_container {
   padding-top: 25px;
 }
@@ -247,22 +262,21 @@ div {
   }
 }
 
-#ead_sidebar { position: fixed; }
-
-.ead_toc {
-  height: 400px;
-  width: 230px;
-  overflow: auto;
-  position: relative;
-  ol {
-    vertical-align: baseline;
+#ead_sidebar {
+  border: 0;
+  a {
+    white-space:normal;
+    height: auto;
     padding: 0;
-    margin: .25em;
+    border-bottom: none;
   }
-  li {
-    list-style: none;
-  }
+
+  li > ins { vertical-align:top; }
+
+  .jstree-hovered, .jstree-clicked { border: 0; }
 }
+
+
 
 #ead_body {
   dd p {

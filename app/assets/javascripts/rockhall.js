@@ -31,7 +31,7 @@ $(document).ready(function () {
     },
     "themes" : {
       "theme" : "apple",
-      "dots"  : false,
+      "dots"  : true,
       "icons" : false
     },
     "plugins" : [ "themes", "json_data", "ui" ]
