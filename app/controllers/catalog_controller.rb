@@ -107,7 +107,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'issn_display',           :label => 'ISSN:'
     config.add_show_field 'upc_display',            :label => 'UPC:'
     config.add_show_field 'pubnum_display',         :label => 'Publisher Number:'
-    config.add_show_field 'id',                     :label => 'OCLC No.:'
+    config.add_show_field 'oclc_display',           :label => 'OCLC No.:'
 
     # Fields specific to ead components
     config.add_show_field 'accessrestrict_display',     :label => 'Access Restrictions:'
