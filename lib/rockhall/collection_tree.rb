@@ -17,7 +17,7 @@ class CollectionTree < Hash
 
   def add_first_level(node = Array.new)
     solr_query.each do |series|
-      node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
+      node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
     end
     self["children"] = node
   end
@@ -26,7 +26,7 @@ class CollectionTree < Hash
     self["children"].each do |parent|
       node = Array.new
       solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
-        node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
+        node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
       end
       parent["children"] = node
     end
@@ -37,7 +37,7 @@ class CollectionTree < Hash
       level2["children"].each do |parent|
         node = Array.new
         solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
-          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
+          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
         end
         parent["children"] = node
       end
@@ -50,7 +50,7 @@ class CollectionTree < Hash
     else
       query[:q] = 'eadid_s:"' + @id + '" AND component_level_i:1'
     end
-    query[:fl]   = 'id, component_level_i, parent_id_s, title_display'
+    query[:fl]   = 'id, component_level_i, parent_id_s, title_display, ref_s, eadid_s'
     query[:qt]   = 'document'
     query[:rows] = 10000
     Blacklight.solr.find(query)["response"]["docs"].collect { |doc| doc }

@@ -1,1 +1,5 @@
-<%= render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}.html" %>
+<% if params["view"] == "full" %>
+  <%= render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}_full.html" %>
+<% else %>
+  <%= render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}.html" %>
+<% end %>

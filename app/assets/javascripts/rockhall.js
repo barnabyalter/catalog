@@ -36,7 +36,7 @@ $(document).ready(function () {
     },
     "plugins" : [ "themes", "json_data", "ui" ]
   }).bind("select_node.jstree", function (e, data) {
-    showComponent(data.rslt.obj.data("id"));
+    showComponent(data.rslt.obj.data("id"),data.rslt.obj.data("ref"),data.rslt.obj.data("eadid"));
   });
 });
 
@@ -88,10 +88,13 @@ function returnHoldings() {
 
 }
 
-function showComponent(id) {
+function showComponent(id,ref,eadid) {
 
   var url = ROOT_PATH + "catalog/" + id;
-  $('#main_container').load(url);
+  var toggle_url = (typeof eadid === "undefined") ? ROOT_PATH+"catalog/"+id+"?view=full" : ROOT_PATH+"catalog/"+eadid+"?view=full#"+ref;
+  var link = '<div id="view_toggle"><a href="'+toggle_url+'">Full view</a></div>';
 
+  $('#main_container').load(url);
+  $('#view_toggle').replaceWith(link);
 
 }
