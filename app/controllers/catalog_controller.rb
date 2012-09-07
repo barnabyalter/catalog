@@ -7,7 +7,7 @@ class CatalogController < ApplicationController
   include BlacklightHighlight::ControllerExtension
   include Rockhall::ControllerBehaviors
 
-  before_filter :redirect_component_documents, :only => :show
+  #before_filter :redirect_component_documents, :only => :show
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -57,7 +57,7 @@ class CatalogController < ApplicationController
     config.default_solr_params[:'facet.field'] = config.facet_fields.keys
 
     # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display
+    # The ordering of the field names is the order of the display
     config.add_index_field 'title_display',             :label => 'Title:'
     config.add_index_field 'author_display',            :label => 'Author:'
     config.add_index_field 'format',                    :label => 'Format:'
@@ -71,7 +71,6 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
-    # None of these fields apply to ead documents or components
     config.add_show_field "title_display",          :label => 'Title:'
     config.add_show_field 'unititle_display',       :label => 'Uniform Title:'
     config.add_show_field 'title_addl_display',     :label => 'Additional Titles:'
@@ -108,6 +107,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'upc_display',            :label => 'UPC:'
     config.add_show_field 'pubnum_display',         :label => 'Publisher Number:'
     config.add_show_field 'id',                     :label => 'OCLC No.:'
+
+    # Fields specific to ead components
+    config.add_show_field 'scopecontent_t',         :label => 'Scope and Content:'
+
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

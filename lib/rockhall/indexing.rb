@@ -37,11 +37,10 @@ module Rockhall::Indexing
 
     doc = Blacklight.solr.find(doc_query)["response"]["docs"].first
 
-    results << { "data" => "Top" }
     [ "bioghist_label_z", "abstract_label_z", "relatedmaterial_label_z", "separatedmaterial_label_z", "accruals_label_z"].each do |label|
-      results << { "data" => doc[label], "metadata" => { "anchor" => ("#" + label.split(/_/).first) }} unless doc[label].nil?
+      results << { "data" => doc[label], "metadata" => { "id" => id, "anchor" => ("#" + label.split(/_/).first) }} unless doc[label].nil?
     end
-    results << { "data" => "Subject Headings",     "metadata" => { "anchor" => "#subjects" }}
+    results << { "data" => "Subject Headings",     "metadata" => { "id" => id, "anchor" => "#subjects" }}
 
     collection = Rockhall::CollectionTree.new
     collection.add_series(id)

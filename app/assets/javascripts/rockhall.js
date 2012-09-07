@@ -36,14 +36,7 @@ $(document).ready(function () {
     },
     "plugins" : [ "themes", "json_data", "ui" ]
   }).bind("select_node.jstree", function (e, data) {
-    // Scroll to the anchor or top of page when the node is clicked
-    if(data.rslt.obj.data("anchor") == null) {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-    }
-    else {
-      $('html,body').animate({scrollTop: $(data.rslt.obj.data("anchor")).offset().top},'slow');
-    }
-    return false;
+    showComponent(data.rslt.obj.data("id"));
   });
 });
 
@@ -92,5 +85,13 @@ function returnHoldings() {
     });
 
   });
+
+}
+
+function showComponent(id) {
+
+  var url = ROOT_PATH + "catalog/" + id;
+  $('#main_container').load(url);
+
 
 }

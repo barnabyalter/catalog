@@ -6,7 +6,6 @@ class CollectionTree < Hash
 
   def initialize
     self["data"] ="Collection Inventory"
-    self["metadata"] = { "anchor" => "#inventory" }
   end
 
   def add_series(id)
@@ -18,7 +17,7 @@ class CollectionTree < Hash
 
   def add_first_level(node = Array.new)
     solr_query.each do |series|
-      node << { "data" => series["title_display"], "metadata" => { "anchor" => ("#"+series["id"].split(/:/).last) }}
+      node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
     end
     self["children"] = node
   end
@@ -26,8 +25,8 @@ class CollectionTree < Hash
   def add_second_level
     self["children"].each do |parent|
       node = Array.new
-      solr_query({:parent => parent["metadata"]["anchor"].gsub(/#/,"")}).each do |series|
-        node << { "data" => series["title_display"], "metadata" => { "anchor" => ("#"+series["id"].split(/:/).last) }}
+      solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+        node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
       end
       parent["children"] = node
     end
@@ -37,8 +36,8 @@ class CollectionTree < Hash
     self["children"].each do |level2|
       level2["children"].each do |parent|
         node = Array.new
-        solr_query({:parent => parent["metadata"]["anchor"].gsub(/#/,"")}).each do |series|
-          node << { "data" => series["title_display"], "metadata" => { "anchor" => ("#"+series["id"].split(/:/).last) }}
+        solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"] }}
         end
         parent["children"] = node
       end
@@ -47,9 +46,9 @@ class CollectionTree < Hash
 
   def solr_query(opts={}, query = Hash.new)
     if opts[:parent]
-      query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND parent_id_s:"' + opts[:parent] + '"'
+      query[:q] = 'eadid_s:"' + @id + '" AND parent_id_s:"' + opts[:parent] + '"'
     else
-      query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND component_level_i:1'
+      query[:q] = 'eadid_s:"' + @id + '" AND component_level_i:1'
     end
     query[:fl]   = 'id, component_level_i, parent_id_s, title_display'
     query[:qt]   = 'document'
