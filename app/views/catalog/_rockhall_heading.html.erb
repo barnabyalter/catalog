@@ -1,3 +1,9 @@
+<% if @document[:eadid_s] %>
+  <% sidebar_items << capture do -%>
+    <div id="ead_sidebar"><div id="<%= @document[:eadid_s] %>_toc" class="ead_toc"></div></div>
+  <% end -%>
+<% end %>
+
 <h1>
   <%= document_icon(@document) %>
   <%= document_heading %>

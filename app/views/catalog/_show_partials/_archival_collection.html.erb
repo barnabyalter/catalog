@@ -1,7 +1,1 @@
-<% sidebar_items << capture do -%>
-  <div id="ead_sidebar">
-    <div id="<%= params[:id] %>_toc" class="ead_toc"></div>
-  </div>
-<% end -%>
-
 <%= render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}.html" %>
