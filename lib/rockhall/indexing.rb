@@ -3,12 +3,27 @@ require "nokogiri"
 # These are class methods used when indexing ead xml into solr.
 module Rockhall::Indexing
 
-  # Converts an ead xml file into an html file for display in Blacklight
+  # Converts an ead xml file into two html files.  One is for the the default display in
+  # Blacklight, which is just the archdesc section of the ead.  The second html file is
+  # for the optional display of the entire finding aid.
   def self.ead_to_html(file)
+    self.default_html(file)
+    self.full_html(file)
+  end
+
+  def self.default_html(file)
     xsl_file = File.join(Rails.root, "xsl", "ead_to_html.xsl")
     xsl = Nokogiri::XSLT(File.read(xsl_file))
     html = Nokogiri(File.read(file))
     dst = File.join(Rails.root, "public", "fa", File.basename(file)).gsub(/\.xml$/,".html")
+    File.open(dst, "w") { |f| f << cleanup_xml(xsl.apply_to(html).to_s) }
+  end
+
+  def self.full_html(file)
+    xsl_file = File.join(Rails.root, "xsl", "ead_to_html_full.xsl")
+    xsl = Nokogiri::XSLT(File.read(xsl_file))
+    html = Nokogiri(File.read(file))
+    dst = File.join(Rails.root, "public", "fa", File.basename(file)).gsub(/\.xml$/,"_full.html")
     File.open(dst, "w") { |f| f << cleanup_xml(xsl.apply_to(html).to_s) }
   end
 
