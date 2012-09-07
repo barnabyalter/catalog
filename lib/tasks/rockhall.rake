@@ -16,8 +16,15 @@ namespace :ead do
 
   desc "Convert ead to html (without indexing in Solr)"
   task :to_html do
-    raise "Please specify your ead, ex. FILE=<path/to/ead.xml" unless ENV['FILE']
-    Rockhall::Indexing.ead_to_html(ENV['FILE'])
+    raise "Please specify a path to your ead, ex. EAD=<path/to/ead.xml" unless ENV['EAD']
+    if File.directory?(ENV['EAD'])
+      Dir.glob(File.join(ENV['EAD'],"*")).each do |file|
+        puts "Converting #{File.basename(file)} to html"
+        Rockhall::Indexing.ead_to_html(file) if File.extname(file).match("xml$")
+      end
+    else
+      Rockhall::Indexing.ead_to_html(ENV['EAD'])
+    end
   end
 
   desc "Create json file for the table of contents"
