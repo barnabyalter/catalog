@@ -63,6 +63,11 @@
           </ul></dd>
         </dl>
 
+        <h2 id="inventory">Collection Inventory</h2>
+        <div id="dsc">
+          <xsl:apply-templates select="//ead:archdesc/ead:dsc"/>
+        </div>
+
       </div>
 
     </xsl:template>
