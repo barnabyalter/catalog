@@ -5,7 +5,7 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include BlacklightHighlight::ControllerExtension
-  include Rockhall::ControllerBehaviors
+  #include Rockhall::ControllerBehaviors
 
   #before_filter :redirect_component_documents, :only => :show
 
@@ -68,6 +68,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'collection_display',        :label => 'Archival Collection:'
     config.add_index_field 'parent_unittitles_display', :label => 'Series:'
     config.add_index_field 'location_display',          :label => 'Location:'
+    config.add_index_field 'scopecontent_display',      :label => 'Scope and Content:'
 
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
@@ -109,7 +110,26 @@ class CatalogController < ApplicationController
     config.add_show_field 'id',                     :label => 'OCLC No.:'
 
     # Fields specific to ead components
-    config.add_show_field 'scopecontent_t',         :label => 'Scope and Content:'
+    config.add_show_field 'accessrestrict_display',     :label => 'Access Restrictions:'
+    config.add_show_field 'accruals_display',           :label => 'Accruals:'
+    config.add_show_field 'acqinfo_display',            :label => 'Acquistions:'
+    config.add_show_field 'altformavail_display',       :label => 'Alt. Form:'
+    config.add_show_field 'appraisal_display',          :label => 'Appraisal:'
+    config.add_show_field 'arrangement_display',        :label => 'Arrangement:'
+    config.add_show_field 'custodhist_display',         :label => 'Custodial History:'
+    config.add_show_field 'fileplan_display',           :label => 'File Plan:'
+    config.add_show_field 'originalsloc_display',       :label => 'Originals:'
+    config.add_show_field 'phystech_display',           :label => 'Physical Tech:'
+    config.add_show_field 'processinfo_display',        :label => 'Processing:'
+    config.add_show_field 'relatedmaterial_display',    :label => 'Related Material:'
+    config.add_show_field 'separatedmaterial_display',  :label => 'Separated Material:'
+    config.add_show_field 'scopecontent_display',       :label => 'Scope and Content:'
+    config.add_show_field 'userestrict_display',        :label => 'Usage Restrictions:'
+    config.add_show_field 'physdesc_display',           :label => 'Physical Description:'
+    config.add_show_field 'dimensions_display',         :label => 'Dimensions:'
+    config.add_show_field 'langmaterial_display',       :label => 'Language:'
+    config.add_show_field 'note_display',               :label => 'Notes:'
+    config.add_show_field 'accession_display',          :label => 'Accession Numbers:'
 
 
     # "fielded" search configuration. Used by pulldown among other places.

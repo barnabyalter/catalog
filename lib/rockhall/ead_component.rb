@@ -21,9 +21,14 @@ class Rockhall::EadComponent < SolrEad::Component
     t.subject(:index_as=>[:facetable])
 
     # Archival material
-    t.container(:attributes=>{ :type => "Box" }, :index_as => [:not_searchable, :not_displayable]) {
-      t.label(:path=>{ :attribute=>"label" })
+    t.container(:index_as => [:not_searchable, :not_displayable]) {
+      t.label(:path => {:attribute=>"label"}, :index_as => [:not_searchable, :not_displayable])
+      t.type(:path => {:attribute=>"type"}, :index_as => [:not_searchable, :not_displayable])
+      t.id(:path => {:attribute=>"id"}, :index_as => [:not_searchable, :not_displayable])
     }
+    t.container_label(:proxy=>[:container, :label])
+    t.container_type(:proxy=>[:container, :type])
+    t.container_id(:proxy=>[:container, :id])
     t.material(:proxy=>[:container, :label], :index_as => [:facetable])
 
     # These terms are proxied to match with Blacklight's default facets, but otherwise
@@ -32,55 +37,45 @@ class Rockhall::EadComponent < SolrEad::Component
     t.subject_geo(:proxy=>[:geogname])
     t.subject_topic(:proxy=>[:subject])
 
-    t.accessrestrict(:path=>"accessrestrict/p")
+    t.accessrestrict(:path=>"accessrestrict/p", :index_as => [:not_searchable, :displayable])
     t.accessrestrict_label(:path=>"accessrestrict/head", :index_as=>[:not_searchable, :z])
-    t.accruals(:path=>"accruals/p")
+    t.accruals(:path=>"accruals/p", :index_as => [:not_searchable, :displayable])
     t.accruals_label(:path=>"accruals/head", :index_as=>[:not_searchable, :z])
-    t.acqinfo(:path=>"acqinfo/p")
+    t.acqinfo(:path=>"acqinfo/p", :index_as => [:not_searchable, :displayable])
     t.acqinfo_label(:path=>"acqinfo/head", :index_as=>[:not_searchable, :z])
-    t.altformavail(:path=>"altformavail/p")
+    t.altformavail(:path=>"altformavail/p", :index_as => [:not_searchable, :displayable])
     t.altformavail_label(:path=>"altformavail/head", :index_as=>[:not_searchable, :z])
-    t.appraisal(:path=>"appraisal/p")
+    t.appraisal(:path=>"appraisal/p", :index_as => [:not_searchable, :displayable])
     t.appraisal_label(:path=>"appraisal/head", :index_as=>[:not_searchable, :z])
-    t.arrangement(:path=>"arrangement/p")
+    t.arrangement(:path=>"arrangement/p", :index_as => [:not_searchable, :displayable])
     t.arrangement_label(:path=>"arrangement/head", :index_as=>[:not_searchable, :z])
-    t.custodhist(:path=>"custodhist/p")
+    t.custodhist(:path=>"custodhist/p", :index_as => [:not_searchable, :displayable])
     t.custodhist_label(:path=>"custodhist/head", :index_as=>[:not_searchable, :z])
-    t.fileplan(:path=>"fileplan/p")
+    t.fileplan(:path=>"fileplan/p", :index_as => [:not_searchable, :displayable])
     t.fileplan_label(:path=>"fileplan/head", :index_as=>[:not_searchable, :z])
-
-    t.originalsloc(:path=>"originalsloc/p")
+    t.originalsloc(:path=>"originalsloc/p", :index_as => [:not_searchable, :displayable])
     t.originalsloc_label(:path=>"originalsloc/head", :index_as=>[:not_searchable, :z])
-    t.phystech(:path=>"phystech/p")
+    t.phystech(:path=>"phystech/p", :index_as => [:not_searchable, :displayable])
     t.phystech_label(:path=>"phystech/head", :index_as=>[:not_searchable, :z])
-    t.processinfo(:path=>"processinfo/p")
+    t.processinfo(:path=>"processinfo/p", :index_as => [:not_searchable, :displayable])
     t.processinfo_label(:path=>"processinfo/head", :index_as=>[:not_searchable, :z])
-    t.relatedmaterial(:path=>"relatedmaterial/p")
+    t.relatedmaterial(:path=>"relatedmaterial/p", :index_as => [:not_searchable, :displayable])
     t.relatedmaterial_label(:path=>"relatedmaterial/head", :index_as=>[:not_searchable, :z])
-    t.separatedmaterial(:path=>"separatedmaterial/p")
+    t.separatedmaterial(:path=>"separatedmaterial/p", :index_as => [:not_searchable, :displayable])
     t.separatedmaterial_label(:path=>"separatedmaterial/head", :index_as=>[:not_searchable, :z])
-    t.scopecontent(:path=>"scopecontent/p")
+    t.scopecontent(:path=>"scopecontent/p", :index_as => [:not_searchable, :displayable])
     t.scopecontent_label(:path=>"scopecontent/head", :index_as=>[:not_searchable, :z])
-    t.userestrict(:path=>"userestrict/p")
+    t.userestrict(:path=>"userestrict/p", :index_as => [:not_searchable, :displayable])
     t.userestrict_label(:path=>"userestrict/head", :index_as=>[:not_searchable, :z])
 
-    t.physdesc(:path=>"did/physdesc[not(dimensions)]")
-    t.dimensions(:path=>"did/physdesc/dimensions")
-    t.langmaterial(:path=>"did/langmaterial")
-
-    t.container {
-      t.label(:path => {:attribute=>"label"})
-      t.type(:path => {:attribute=>"type"})
-      t.id(:path => {:attribute=>"id"})
-    }
-    t.container_label(:proxy=>[:container, :label])
-    t.container_type(:proxy=>[:container, :type])
-    t.container_id(:proxy=>[:container, :id])
+    t.physdesc(:path=>"did/physdesc[not(dimensions)]", :index_as => [:not_searchable, :displayable])
+    t.dimensions(:path=>"did/physdesc/dimensions", :index_as => [:not_searchable, :displayable])
+    t.langmaterial(:path=>"did/langmaterial", :index_as => [:not_searchable, :displayable])
 
     # <odd> nodes
     # These guys depend on what's in <head> so we do some xpathy stuff...
-    t.general_note(:path=>'odd[./head="General note"]/p')
-    t.accession(:path=>'odd[./head[starts-with(.,"Museum Accession")]]/p', :index_as => [:not_searchable, :string])
+    t.note(:path=>'odd[./head="General note"]/p', :index_as => [:not_searchable, :displayable])
+    t.accession(:path=>'odd[./head[starts-with(.,"Museum Accession")]]/p', :index_as => [:not_searchable, :displayable])
 
 
   end
