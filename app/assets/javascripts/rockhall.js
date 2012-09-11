@@ -97,4 +97,9 @@ function showComponent(id,ref,eadid) {
   $('#main_container').load(url);
   $('#view_toggle').replaceWith(link);
 
+  // replace the current url with the new one
+  var host = window.location.hostname;
+  var port = window.location.port == 80 ? nil : (":"+window.location.port);
+  history.replaceState({}, '', "http://"+host+port+ROOT_PATH+'catalog/'+eadid+':'+ref);
+
 }
