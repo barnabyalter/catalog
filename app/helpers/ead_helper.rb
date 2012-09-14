@@ -12,6 +12,17 @@ module EadHelper
     end
   end
 
+  def component_link(solr_doc)
+    fields = [render_document_show_field_value(:document => solr_doc, :field => "title_display"), render_document_show_field_value(:document => solr_doc, :field => "unitdate_display")]
+    fields.reject! { |c| c.empty? }
+    link_to(fields.join(", "), catalog_path(solr_doc[:id]), :class => "component_link")
+  end
+
+  def location_link(solr_doc)
+    if solr_doc["location_display"]
+      render_document_show_field_value(:document => solr_doc, :field => "location_display")
+    end 
+  end
 
 
 

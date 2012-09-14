@@ -5,9 +5,9 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include BlacklightHighlight::ControllerExtension
-  #include Rockhall::ControllerBehaviors
+  include Rockhall::ControllerBehaviors
 
-  #before_filter :redirect_component_documents, :only => :show
+  before_filter :query_child_components, :only => :show
 
   configure_blacklight do |config|
     config.default_solr_params = {

@@ -1,0 +1,23 @@
+<script>
+  componentLink();
+</script>
+
+<% # This is the default partial copied over from the gem %>
+<dl class="defList">
+  <% document_show_fields.each do |solr_fname, field| -%>
+    <% if document.has? solr_fname %>
+	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label :field => solr_fname %></dt>
+	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value :document => document, :field => solr_fname %></dd>
+    <% end -%>
+  <% end -%>
+</dl>
+
+<table>
+<% @children.each do |child| %>
+  <tr>
+    <td><%= component_link(child) %></td>
+    <td><%= location_link(child) %></td>
+  </tr>
+<% end %>
+</table>
+

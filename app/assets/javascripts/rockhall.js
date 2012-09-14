@@ -20,6 +20,10 @@
 $(document).ready(returnStatus);
 $(document).ready(returnHoldings);
 
+// Overrides links to archival items so that there's ajaxed like the others
+$(document).ready(componentLink);
+
+
 // Sets up our JSTree using JSON data
 // see: http://www.jstree.com/documentation/json_data
 $(document).ready(function () {
@@ -39,6 +43,8 @@ $(document).ready(function () {
     showComponent(data.rslt.obj.data("id"),data.rslt.obj.data("ref"),data.rslt.obj.data("eadid"));
   });
 });
+
+
 
 /*
 
@@ -90,9 +96,9 @@ function returnHoldings() {
 
 function showComponent(id,ref,eadid) {
 
-  var url = ROOT_PATH + "catalog/" + id;
+  var url        = ROOT_PATH + "catalog/" + id;
   var toggle_url = (typeof eadid === "undefined") ? ROOT_PATH+"catalog/"+id+"?view=full" : ROOT_PATH+"catalog/"+eadid+"?view=full#"+ref;
-  var link = '<div id="view_toggle"><a href="'+toggle_url+'">Full view</a></div>';
+  var link       = '<div id="view_toggle"><a href="'+toggle_url+'">Full view</a></div>';
 
   $('#main_container').load(url);
   $('#view_toggle').replaceWith(link);
@@ -101,5 +107,16 @@ function showComponent(id,ref,eadid) {
   var host = window.location.hostname;
   var port = window.location.port == 80 ? nil : (":"+window.location.port);
   history.replaceState({}, '', "http://"+host+port+ROOT_PATH+'catalog/'+eadid+':'+ref);
+
+}
+
+function componentLink() {
+
+  $(".component_link").click( function() { 
+    var url = this.getAttribute("href");
+    $('#main_container').load(url);
+    history.replaceState({}, '', this);
+    return false;
+  });
 
 }
