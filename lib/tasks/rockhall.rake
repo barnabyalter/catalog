@@ -29,9 +29,17 @@ namespace :ead do
 
   desc "Create json file for the table of contents"
   task :to_json do
-    raise "Please specify your ead, ex. FILE=<path/to/ead.xml" unless ENV['FILE']
-    id = File.basename(ENV['FILE']).gsub(/\.xml$/,"")
-    Rockhall::Indexing.toc_to_json(id)
+    raise "Please specify your ead, ex. EAD=<path/to/ead.xml" unless ENV['EAD']
+    if File.directory?(ENV['EAD'])
+      Dir.glob(File.join(ENV['EAD'],"*")).each do |file|
+        id = File.basename(file).gsub(/\.xml$/,"")
+        puts "Processing json for #{id}"
+        Rockhall::Indexing.toc_to_json(id)
+      end
+    else
+      id = File.basename(ENV['EAD']).gsub(/\.xml$/,"")
+      Rockhall::Indexing.toc_to_json(id)
+    end
   end
 
   desc "Index a directory of ead files using RockhallDocument"
