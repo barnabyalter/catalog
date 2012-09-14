@@ -3,13 +3,13 @@ module Rockhall::ControllerBehaviors
   def query_child_components
     id, ref = params[:id].split(/:/)
     unless ref.nil?
-      @children = additional_ead_components(ref)
+      @children = additional_ead_components(id,ref)
     end
   end
 
-  def additional_ead_components(ref, solr_params = Hash.new)
+  def additional_ead_components(id,ref, solr_params = Hash.new)
     solr_params[:fl]   = "id"
-    solr_params[:q]    = "parent_id_s:#{ref}"
+    solr_params[:q]    = "parent_id_s:#{ref} AND eadid_s:#{id}"
     solr_params[:sort] = "sort_i asc"
     solr_params[:qt]   = "standard"
     solr_params[:rows] = 10000
