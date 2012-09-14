@@ -15,13 +15,31 @@ module EadHelper
   def component_link(solr_doc)
     fields = [render_document_show_field_value(:document => solr_doc, :field => "title_display"), render_document_show_field_value(:document => solr_doc, :field => "unitdate_display")]
     fields.reject! { |c| c.empty? }
-    link_to(fields.join(", "), catalog_path(solr_doc[:id]), :class => "component_link")
+    if solr_doc["component_children_b"]
+      link_to(fields.join(", "), catalog_path(solr_doc[:id]), :class => "component_link")
+    else
+      fields.join(", ")
+    end 
   end
 
   def location_link(solr_doc)
     if solr_doc["location_display"]
       render_document_show_field_value(:document => solr_doc, :field => "location_display")
     end 
+  end
+
+  def component_trail(solr_doc, result=String.new)
+    result << link_to(solr_doc["collection_display"].first, catalog_path(solr_doc["eadid_s"]), :class => "component_link")
+    if solr_doc["parent_ids_display"]
+      solr_doc["parent_ids_display"].each_index do |n|
+        result << " >> "
+        id = solr_doc["eadid_s"] + ":" + solr_doc["parent_ids_display"][n]
+        result << link_to(solr_doc["parent_unittitles_display"][n], catalog_path(id), :class => "component_link")
+      end
+    end
+    result << " >> " + solr_doc["title_display"]
+    return result.html_safe
+
   end
 
 
