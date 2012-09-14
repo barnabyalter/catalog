@@ -46,9 +46,9 @@ class CollectionTree < Hash
 
   def solr_query(opts={}, query = Hash.new)
     if opts[:parent]
-      query[:q] = 'eadid_s:"' + @id + '" AND parent_id_s:"' + opts[:parent] + '"'
+      query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND parent_id_s:"' + opts[:parent] + '"'
     else
-      query[:q] = 'eadid_s:"' + @id + '" AND component_level_i:1'
+      query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND component_level_i:1'
     end
     query[:fl]   = 'id, component_level_i, parent_id_s, title_display, ref_s, eadid_s'
     query[:qt]   = 'document'
