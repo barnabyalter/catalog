@@ -1,0 +1,308 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"link",
+				"link_back_to_catalog"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"p",
+				"pagination"
+			],
+			[
+				"pat",
+				"path"
+			],
+			[
+				"st",
+				"standard"
+			],
+			[
+				"or",
+				"orig_date"
+			],
+			[
+				"compone",
+				"component_link"
+			],
+			[
+				"fun",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Snippet: #!/usr/bin/env"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/adamw/Projects/Github/Hydra-Rock/config/rockhall.yml",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/discovery.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/tasks/rockhall.rake",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/rockhall/index_methods_spec.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/hydra-rock.sublime-project",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/index_methods.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/pbcore_digital_document.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/pbcore_document.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/features/rockhall/rockhall_show_videos.feature",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/pbcore_methods.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/views/archival_videos/_show.html.erb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/controllers/catalog_controller.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/views/layouts/hydra-head.html.erb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/.gitignore",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/assets/stylesheets/rockhall.scss",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/assets/stylesheets/application.scss",
+		"/Users/adamw/Projects/Github/Hydra-Rock/hydra-rock.sublime-workspace",
+		"/Users/adamw/Dropbox/Lute Temperament/latex/paper/fretting.tex",
+		"/Users/adamw/Downloads/PasteColumn.sublime-package",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/assets/stylesheets/bootstrap_and_overrides.css.less",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/assets/javascripts/rockhall/rockhall.js",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/models/archival_video.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/assets/javascripts/application.js",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/workflow/gbv_ingest.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/workflow_methods.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/workflow/gbv_sip.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/app/models/external_video.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/lib/workflow/gbv_document.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/workflow/gbv_sip_spec.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/rockhall/discovery_spec.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/workflow/gbv_document_spec.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/fixtures/rockhall/gbv_document_fixture copy.xml",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/spec_helper.rb",
+		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/rockhall/pbcore_document_spec.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/local_blacklight_helper.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/ead_helper.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/spec/fixtures/ead/ARC-0037.xml",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/application_helper.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/local_blacklight_helper_behavior.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/gems/blacklight/app/helpers/blacklight/blacklight_helper_behavior.rb",
+		"/Users/adamw/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/adamw/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/lib/tasks/rockhall.rake",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/spec/fixtures/ead/ARC-0026.xml",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/lib/rockhall/controller_behaviors.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/lib/rockhall/collection_tree.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/views/catalog/_rockhall_heading.html.erb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/views/catalog/_show_partials/_archival_item.html.erb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/controllers/catalog_controller.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/gems/blacklight/app/helpers/blacklight_helper.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/assets/javascripts/application.js",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/assets/javascripts/rockhall.js",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/views/catalog/show.js.erb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/controllers/application_controller.rb"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ds",
+			"</str>",
+			"contributor_name",
+			"textit",
+			"3",
+			"3.93",
+			"pref",
+			"pagination",
+			"\\}\\} \\)\\s+",
+			"]\\s+=> \\{\"0\" => ",
+			"ds.update_indexed_attributes( {[:",
+			"\\}\\} \\)\\s+",
+			"]\\s+=> \\{\"0\" => ",
+			"]                    => {\"0\" => ",
+			"ds.update_indexed_attributes( {[:",
+			"update_preservation_fields",
+			"av",
+			"update_fields",
+			"av",
+			"\\s+",
+			"\\R",
+			"\\n",
+			"\\s",
+			"\\n",
+			"\\r",
+			",\\s+:to.*",
+			"delegate",
+			"delegate ",
+			"deletegate ",
+			"update_fields",
+			"av",
+			"update_fields",
+			"?\n",
+			".first",
+			"return self.",
+			"frame_size",
+			"p_audio_standard",
+			"ratio",
+			"file_format",
+			"format",
+			"parse_date",
+			"first",
+			"self",
+			"\\(:path.*\\)",
+			"t.",
+			"(:path",
+			".should",
+			"\\(.*\\)",
+			"t.",
+			"\"VideoObject",
+			"VideoObject",
+			"Revenge alternate album cover",
+			"document_heading",
+			">\n",
+			"Knack",
+			"Knack, Serious Fun"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\\t\\t\\t",
+			" = ",
+			"obj.",
+			"\\t\\t\\t",
+			" = ",
+			"obj.",
+			"@av",
+			" ",
+			", ",
+			"",
+			", ",
+			"",
+			"@av",
+			"_array.first",
+			"return parse_empty(self.",
+			"first\\n\\t\\tend\\n",
+			"first\\n\\t\\tend\\n\\n",
+			"def\\n\\t\\t\\treturn self",
+			"def\\n\\t\\treturn self",
+			"def\\r\\t\\treturn self",
+			".first",
+			"self.",
+			"_array(:path",
+			"_a(:path",
+			".first.should",
+			".first.should == \"\"",
+			"@doc.",
+			"@doc",
+			"\"/VideoObject",
+			"/VideoObject"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 328.0,
+	"status_bar_visible": true
+}
