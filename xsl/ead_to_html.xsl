@@ -13,7 +13,7 @@
       <div id="ead_body">
 
         <!-- General information section displays fields from archdesc in horizontal format using <dl> -->
-        <h2>General Information</h2>
+        <h2 id="geninfo">General Information</h2>
         <dl class="defList">
           <dt>Title:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:unittitle"/></dd>
