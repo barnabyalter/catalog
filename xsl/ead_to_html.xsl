@@ -12,6 +12,15 @@
     <xsl:template match="/">
       <div id="ead_body">
 
+        <div id="ead_nav">
+          <a href="#abstract">Collection Overview</a>
+          <xsl:apply-templates select="//ead:archdesc/ead:bioghist/ead:head" mode="navlinks"/>
+          <xsl:apply-templates select="//ead:archdesc/ead:relatedmaterial/ead:head" mode="navlinks"/>
+          <xsl:apply-templates select="//ead:archdesc/ead:separatedmaterial/ead:head" mode="navlinks"/>
+          <xsl:apply-templates select="//ead:archdesc/ead:accruals/ead:head" mode="navlinks"/>
+          <a href="#subjects">Subject Headings</a>
+        </div>
+
         <!-- General information section displays fields from archdesc in horizontal format using <dl> -->
         <h2 id="geninfo">General Information</h2>
         <dl class="defList">
@@ -84,6 +93,13 @@
         <xsl:otherwise><h2 id="{$id}"><xsl:apply-templates/></h2></xsl:otherwise>
       </xsl:choose>
     </xsl:template>
+
+    <!-- EAD navigation links -->
+    <xsl:template match="ead:head" mode="navlinks">
+      <xsl:variable name="id" select="local-name(parent::*)"/>
+      <a href="#{$id}"><xsl:apply-templates/></a>
+    </xsl:template>
+
 
     <!-- EAD paragraphs -->
     <xsl:template match="ead:p">

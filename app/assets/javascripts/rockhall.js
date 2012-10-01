@@ -40,7 +40,7 @@ $(document).ready(function () {
     },
     "plugins" : [ "themes", "json_data", "ui" ]
   }).bind("select_node.jstree", function (e, data) {
-    showComponent(data.rslt.obj.data("id"),data.rslt.obj.data("ref"),data.rslt.obj.data("eadid"));
+    showComponent(data);
   });
 });
 
@@ -94,11 +94,23 @@ function returnHoldings() {
 
 }
 
-function showComponent(id,ref,eadid) {
+function showComponent(data) {
 
-  var url        = ROOT_PATH + "catalog/" + id;
-  var toggle_url = (typeof eadid === "undefined") ? ROOT_PATH+"catalog/"+id+"?view=full" : ROOT_PATH+"catalog/"+eadid+"?view=full#"+ref;
-  var link       = '<div id="view_toggle"><a href="'+toggle_url+'">Full view</a></div>';
+  // Declare some variables we are using here
+  var url;
+  var toggle_url; 
+  var link;
+
+  url = ROOT_PATH + "catalog/" + data.rslt.obj.data("id");
+
+  // Toggle and link urls
+  if (typeof data.rslt.obj.data("eadid") === "undefined") {
+    toggle_url = ROOT_PATH+"catalog/"+data.rslt.obj.data("id")+"?view=full"
+  }
+  else {
+    toggle_url = ROOT_PATH+"catalog/"+data.rslt.obj.data("eadid")+"?view=full#"+data.rslt.obj.data("ref");
+  }
+  link = '<div id="view_toggle"><a href="'+toggle_url+'">Full view</a></div>';
 
   $('#main_container').load(url);
   $('#view_toggle').replaceWith(link);
@@ -106,7 +118,7 @@ function showComponent(id,ref,eadid) {
   // replace the current url with the new one
   var host = window.location.hostname;
   var port = window.location.port == 80 ? nil : (":"+window.location.port);
-  history.replaceState({}, '', "http://"+host+port+ROOT_PATH+'catalog/'+eadid+':'+ref);
+  history.replaceState({}, '', "http://"+host+port+url);
 
 }
 
