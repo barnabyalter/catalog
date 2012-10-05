@@ -12,12 +12,4 @@
   <% end -%>
 </dl>
 
-<table>
-<% @children.each do |child| %>
-  <tr>
-    <td><%= component_link(child) %></td>
-    <td><%= location_link(child) %></td>
-  </tr>
-<% end %>
-</table>
-
+<%= render_component_children unless @children.nil? %>

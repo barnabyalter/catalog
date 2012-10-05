@@ -39,9 +39,19 @@ module EadHelper
     end
     result << " >> " + solr_doc["title_display"]
     return result.html_safe
-
   end
 
-
+  def render_component_children results = String.new
+    results << "<table>"
+    @children.each do |child|
+      results << "<tr><td>"
+      results << component_link(child)
+      results << "</td><td>"
+      results << location_link(child) unless location_link(child).nil?
+      results << "</td></tr>"
+    end
+    results << "</table>"
+    return results.html_safe
+  end
 
 end
