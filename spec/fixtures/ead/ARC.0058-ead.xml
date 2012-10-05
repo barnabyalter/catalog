@@ -23,7 +23,7 @@
         </filedesc>
         <profiledesc>
             <creation>This finding aid was produced using the Archivists' Toolkit
-                <date>2012-10-02T11:42-0400</date>
+                <date>2012-10-05T12:21-0400</date>
             </creation>
             <langusage>English</langusage>
             <descrules>Describing Archives: A Content Standard</descrules>
@@ -129,7 +129,7 @@
             <subject source="lcsh">Rock music--Posters</subject>
         </controlaccess>
         <dsc>
-            <c01 id="ref2" level="item">
+            <c id="ref2" level="item">
                 <did>
                     <unittitle>...And You Will Know Us By the Trail of Dead</unittitle>
                     <langmaterial>
@@ -146,8 +146,8 @@
                     <head>Artist's Proof</head>
                     <p>Artist's Proof</p>
                 </odd>
-            </c01>
-            <c01 id="ref6" level="item">
+            </c>
+            <c id="ref6" level="item">
                 <did>
                     <unittitle>Galatic, Drums and Tuba</unittitle>
                     <langmaterial>
@@ -164,8 +164,8 @@
                     <head>Limited Print Run</head>
                     <p>15/75</p>
                 </odd>
-            </c01>
-            <c01 id="ref10" level="item">
+            </c>
+            <c id="ref10" level="item">
                 <did>
                     <unittitle>Queens of the Stone Age</unittitle>
                     <langmaterial>
@@ -182,8 +182,8 @@
                     <head>Limited Print Run</head>
                     <p>Gold 17/25</p>
                 </odd>
-            </c01>
-            <c01 id="ref14" level="item">
+            </c>
+            <c id="ref14" level="item">
                 <did>
                     <unittitle>Mogwai, ...And You Will Know Us By the Trail of Dead, Dälek</unittitle>
                     <langmaterial>
@@ -200,8 +200,8 @@
                     <head>Limited Print Run</head>
                     <p>52/175</p>
                 </odd>
-            </c01>
-            <c01 id="ref18" level="item">
+            </c>
+            <c id="ref18" level="item">
                 <did>
                     <unittitle>...And You Will Know Us By the Trail of Dead, Mogwai, Octopus Project, A Tiger Named Love, The Falcon</unittitle>
                     <langmaterial>
@@ -218,8 +218,8 @@
                     <head>Limited Print Run</head>
                     <p>36/175</p>
                 </odd>
-            </c01>
-            <c01 id="ref23" level="item">
+            </c>
+            <c id="ref23" level="item">
                 <did>
                     <unittitle>Deftones, Poison the Well, Denali</unittitle>
                     <langmaterial>
@@ -240,8 +240,8 @@
                     <head>Museum Accession Number</head>
                     <p>A2005.31.5</p>
                 </odd>
-            </c01>
-            <c01 id="ref27" level="item">
+            </c>
+            <c id="ref27" level="item">
                 <did>
                     <unittitle>Jane's Addiction, Burden Brothers, Blue October</unittitle>
                     <langmaterial>
@@ -258,8 +258,8 @@
                     <head>Limited Print Run</head>
                     <p>6/200</p>
                 </odd>
-            </c01>
-            <c01 id="ref28" level="item">
+            </c>
+            <c id="ref28" level="item">
                 <did>
                     <unittitle>A.F.I., Coheed and Cambria</unittitle>
                     <langmaterial>
@@ -280,8 +280,8 @@
                     <head>Museum Accession Number</head>
                     <p>A2005.31.4</p>
                 </odd>
-            </c01>
-            <c01 id="ref35" level="item">
+            </c>
+            <c id="ref35" level="item">
                 <did>
                     <unittitle>South by Southwest Music and Media Conference (SXSW)</unittitle>
                     <langmaterial>
@@ -298,8 +298,8 @@
                     <head>Limited Print Run</head>
                     <p>35/200</p>
                 </odd>
-            </c01>
-            <c01 id="ref39" level="item">
+            </c>
+            <c id="ref39" level="item">
                 <did>
                     <unittitle>The Darkness, The Wildheart</unittitle>
                     <langmaterial>
@@ -316,8 +316,8 @@
                     <head>Artist's Proof</head>
                     <p>Artist's Proof</p>
                 </odd>
-            </c01>
-            <c01 id="ref43" level="item">
+            </c>
+            <c id="ref43" level="item">
                 <did>
                     <unittitle>A Perfect Circle, Burning Brides</unittitle>
                     <langmaterial>
@@ -334,8 +334,8 @@
                     <head>Artist's Proof</head>
                     <p>Artist's Proof</p>
                 </odd>
-            </c01>
-            <c01 id="ref47" level="item">
+            </c>
+            <c id="ref47" level="item">
                 <did>
                     <unittitle>Curiosa Festival</unittitle>
                     <langmaterial>
@@ -352,8 +352,8 @@
                     <head>Limited Print Run</head>
                     <p>8/100</p>
                 </odd>
-            </c01>
-            <c01 id="ref51" level="item">
+            </c>
+            <c id="ref51" level="item">
                 <did>
                     <unittitle>Sparta, Further Seems Forever, Copeland, Sunshine</unittitle>
                     <langmaterial>
@@ -370,8 +370,8 @@
                     <head>Limited Print Run</head>
                     <p>31/325</p>
                 </odd>
-            </c01>
-            <c01 id="ref55" level="item">
+            </c>
+            <c id="ref55" level="item">
                 <did>
                     <unittitle>Queens of the Stone Age</unittitle>
                     <langmaterial>
@@ -388,8 +388,8 @@
                     <head>Limited Print Run</head>
                     <p>75/250</p>
                 </odd>
-            </c01>
-            <c01 id="ref59" level="item">
+            </c>
+            <c id="ref59" level="item">
                 <did>
                     <unittitle>Queens of the Stone Age, Throw Rag</unittitle>
                     <langmaterial>
@@ -402,8 +402,8 @@
                         <dimensions>21" x 28.5"</dimensions>
                     </physdesc>
                 </did>
-            </c01>
-            <c01 id="ref62" level="item">
+            </c>
+            <c id="ref62" level="item">
                 <did>
                     <unittitle>Mars Volta</unittitle>
                     <langmaterial>
@@ -420,8 +420,8 @@
                     <head>Museum Accession Number</head>
                     <p>A2005.31.15</p>
                 </odd>
-            </c01>
-            <c01 id="ref65" level="item">
+            </c>
+            <c id="ref65" level="item">
                 <did>
                     <unittitle>Audioslave - 
                         <title render="italic">Love</title></unittitle>
@@ -435,8 +435,8 @@
                         <dimensions>22" x 33"</dimensions>
                     </physdesc>
                 </did>
-            </c01>
-            <c01 id="ref68" level="item">
+            </c>
+            <c id="ref68" level="item">
                 <did>
                     <unittitle>Morrison, Jim - "Wake Up"</unittitle>
                     <langmaterial>
@@ -453,7 +453,7 @@
                     <head>Museum Accession Number</head>
                     <p>A2005.31.18</p>
                 </odd>
-            </c01>
+            </c>
         </dsc>
     </archdesc>
 </ead>
