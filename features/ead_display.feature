@@ -25,8 +25,13 @@ Feature: EAD display
   Scenario: Date expression in sub component level (BL-9) and accession numbers
     Given I am on the ead page for ARC-0105
     Then I should see "Awards and certificates, 1976-1986"
-    And I should not see "Museum Accession Numbers:"
-    And I should not see "A1994.4.10-A1994.4.22"
+    When I follow "Collection Inventory"
+    Then I should see "Oversize materials, 1977-1985, undated"
+
+  Scenario: Date expression in sub component level (BL-9) and accession numbers
+    Given I am on the ead page for ARC-0105:2:ref42
+    Then I should see "Awards and certificates"
+    And I should see "Awards and certificates, 1976-1986"
 
   Scenario: Names (BL-7, BL-147)
     Given I am on the ead page for ARC-0058
@@ -102,7 +107,7 @@ Feature: EAD display
     And I should not see "Immediate Source of Acquisition note"
     And I should see "Custodial History"
     Given I am on the ead page for ARC-0067
-    Then I should see "The Curtis Mayfield Collection was received from Mayfield on December 1994"
+    Then I should see "The Curtis Mayfield Collection was received from Mayfield on December 1994."
     And I should see "Custodial History"
 
   Scenario: Publisher note in finding aids (BL-142)
@@ -145,6 +150,12 @@ Feature: EAD display
     Then I should see "First meeting of the Organization"
     And I should see "Incorporated as a Minnesota non-profit organization"
     And I should see "Holds first annual Eddie Cochran Weekend in Alberta Lea, Minn"
+
+  @future-work
+  Scenario: Displaying text in bold
+    Given I am on the ead page for ARC-0005
+    Then I should see "EDDIE COCHRAN" in "bold"
+    And I should see "EDDIE COCHRAN HISTORICAL ORGANIZATION" in "bold"
 
   Scenario: Title nodes in ead (BL-209)
     Given I am on the ead page for ARC-0026

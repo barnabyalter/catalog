@@ -29,3 +29,10 @@ lib/solrmarc.log*
 
 .sass-cache/*
 test/data/ead/*
+
+gems/*
+
+blacklight.sublime-project
+blacklight.sublime-workspace
+
+spec/fixtures/marc/tmp/*

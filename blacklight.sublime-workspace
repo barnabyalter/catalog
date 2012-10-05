@@ -68,6 +68,9 @@
 	},
 	"file_history":
 	[
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/Gemfile",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/lib/rockhall/ead_methods.rb",
+		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/local_blacklight_helper.rb",
 		"/Users/adamw/Projects/Github/Hydra-Rock/config/rockhall.yml",
 		"/Users/adamw/Projects/Github/Hydra-Rock/lib/rockhall/discovery.rb",
 		"/Users/adamw/Projects/Github/Hydra-Rock/lib/tasks/rockhall.rake",
@@ -102,7 +105,6 @@
 		"/Users/adamw/Projects/Github/Hydra-Rock/spec/fixtures/rockhall/gbv_document_fixture copy.xml",
 		"/Users/adamw/Projects/Github/Hydra-Rock/spec/spec_helper.rb",
 		"/Users/adamw/Projects/Github/Hydra-Rock/spec/lib/rockhall/pbcore_document_spec.rb",
-		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/local_blacklight_helper.rb",
 		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/ead_helper.rb",
 		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/spec/fixtures/ead/ARC-0037.xml",
 		"/Users/adamw/Projects/Rails/blacklight-app/current/blacklight-app/app/helpers/application_helper.rb",

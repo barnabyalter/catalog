@@ -1,45 +1,6 @@
 # setup up empty hash to put our configuration into
 config = Hash.new
 
-# Configure the application
-
-# These are fields that will appear as links in the results page.
-# It can be either a field search or a facet, but not both.
-# For searchers, the value of the :search key indicates the search type as defined below
-# in config[:search_types]
-# For facets, the value of the :facet key is the facet field that the term should link to
-config[:linked_fields] = {
-  :subject_display => {
-    :search => FALSE,
-    :facet  => "subject_topic_facet",
-  },
-  :genre_display => {
-    :search => FALSE,
-    :facet  => "genre_facet",
-  },
-  :contributors_display => {
-    :search => FALSE,
-    :facet  => "name_facet",
-  },
-  :series_display => {
-    :search => FALSE,
-    :facet  => "series_facet",
-  },
-  :relworks_display => {
-    :search => "all_fields",
-    :facet  => FALSE,
-  },
-  :collection_display => {
-    :search => "all_fields",
-    :facet  => FALSE,
-  },
-}
-
-# Fields that link to external sites
-config[:external_links] = {
-  "resource_link_display" => "title_display"
-}
-
 # EAD config
 # Important! Any changes below will require you to reindex all your EAD documents
 # Only fields with a given label will appear under the "General Information"

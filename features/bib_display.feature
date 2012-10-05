@@ -42,7 +42,7 @@ Feature:
     Given I am on the home page
     And I fill in "q" with "rhlocal"
     When I press "search"
-    Then I should see "Diamond dogs / Bowie"
+    Then I should see "Lifting latches / John C. Winn"
 
   # TODO: depsite not using removeTralingPunct, it still seems to do it anyway
   Scenario: Displaying uniform title from 240 field (BL-48)
@@ -51,7 +51,7 @@ Feature:
 
   Scenario: Display resource links and urls (BL-48/42)
     Given I am on the bib record page for 33827620
-    Then I should see the field title "blacklight-resource_link_display" contain "Resource Link:"
+    Then I should see the field title "blacklight-resource_link_display" contain "Online Resource:"
     And I should see the field content "blacklight-resource_link_display" contain "Rock and Roll Hall of Fame and Museum"
     And I should be able to follow "Rock and Roll Hall of Fame and Museum"
 
@@ -113,4 +113,29 @@ Feature:
     Then I should see the field content "blacklight-contributors_display" contain "Moonalice (Musical group)"
     And I should see the field content "blacklight-contributors_display" not contain "Moonalice (Musical group)Posters"
 
+  Scenario: OhlinLink urls (BL-257, BL-259)
+    Given I am on the bib record page for 40393214
+    Then I should see the field content "blacklight-ohlink_url_display" contain "Connect to Database Online"
+    And I should see the field title "blacklight-ohlink_url_display" contain "OhioLink Resource:"
+    And I should be able to follow "Connect to Database Online"
+  
+  Scenario: Bib record link display text (BL-258, BL-260)
+    Given I am on the bib record page for 811563836
+    Then I should see the field content "blacklight-resource_url_display" contain "Connect to resource"
+    And I should see the field title "blacklight-resource_url_display" contain "Online Resource"
+    And I should be able to follow "Connect to resource"
 
+  Scenario: Displaying links in the index view (BL-265)   
+    Given I am on the home page
+    When I follow "Website"
+    Then I should see the field content "blacklight-ohlink_url_display" contain "Connect to Database Online"
+
+  Scenario: Name headings in bib record Author fields should be linked (BL-244)
+    Given I am on the bib record page for 668192442
+    Then I should be able to follow "Golio, Gary"  
+
+  Scenario: RRHoF as contributor (BL-256)
+    Given I am on the bib record page for 729256165
+    Then I should see the field content "blacklight-contributors_display" contain "Rock and Roll Hall of Fame and Museum"
+
+    

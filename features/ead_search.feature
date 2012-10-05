@@ -19,6 +19,7 @@ Feature: EAD display
     Then I should see "Curtis Mayfield Collection"
     And I should see "Photographs"
 
+  @future-work
   Scenario: Searching by accession number (BL-49)
     Given I am on the home page
     And I fill in "q" with "A1994.34.15"
