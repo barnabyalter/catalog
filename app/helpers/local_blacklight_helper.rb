@@ -30,6 +30,14 @@ module LocalBlacklightHelper
   # end of overriding methods
   #
 
+  def document_heading
+    if @document["format"] == "Archival Item"
+      component_trail(@document)
+    else
+      @document[blacklight_config.show.heading] || @document.id
+    end
+  end
+
   def render_external_link args
     text      = args[:document].get(blacklight_config.show_fields[args[:field]][:text])
     url       = args[:document].get(args[:field])
