@@ -8,7 +8,7 @@ module MarcHelper
     end
   end
 
-  def render_external_link args
+  def render_external_link args, results = Array.new
     text      = args[:document].get(blacklight_config.show_fields[args[:field]][:text])
     url       = args[:document].get(args[:field])
     link_text = text.nil? ? url : text
@@ -19,10 +19,10 @@ module MarcHelper
     value = args[:document][args[:field]]
     if value.is_a? Array
       value.each do |text|
-        results << link_to(text, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], text), :class=>"facet_select label")
+        results << link_to(text, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], Sanitize.clean(text)), :class=>"facet_select label")
       end
     else
-      results << link_to(value, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], value), :class=>"facet_select label")
+      results << link_to(value, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], Sanitize.clean(value)), :class=>"facet_select label")
     end
     return results.join(field_value_separator).html_safe
   end
