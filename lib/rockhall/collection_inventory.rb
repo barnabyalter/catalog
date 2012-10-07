@@ -2,28 +2,31 @@
 # components.  The array conforms to the JSTree format.
 
 module Rockhall
-class CollectionTree < Hash
+class CollectionInventory
 
-  def initialize
-    self["data"] ="Collection Inventory"
+  attr_accessor :id, :tree
+
+  def initialize(id)
+    @id   = id
+    @tree =  add_first_level
+    #add_series
   end
 
-  def add_series(id)
-    @id = id
-    add_first_level
+  def add_series
+    self.tree = add_first_level
     add_second_level
-    add_third_level
+    #add_third_level
   end
 
   def add_first_level(node = Array.new)
     solr_query.each do |series|
       node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
     end
-    self["children"] = node
+    return node
   end
 
   def add_second_level
-    self["children"].each do |parent|
+    self.tree.each do |parent|
       node = Array.new
       solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
         node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
@@ -33,13 +36,15 @@ class CollectionTree < Hash
   end
 
   def add_third_level
-    self["children"].each do |level2|
-      level2["children"].each do |parent|
-        node = Array.new
-        solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
-          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+    self.tree.each do |level1|
+      level1["children"].each do |level2|
+        level2["children"].each do |parent|
+          node = Array.new
+          solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+            node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+          end
+          parent["children"] = node
         end
-        parent["children"] = node
       end
     end
   end

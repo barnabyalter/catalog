@@ -44,10 +44,9 @@ module Rockhall::Indexing
   #
   # Uses the CollectionTree to reassemble each component into its correct hierarchy.
   def self.toc_to_json(id)
-    collection = Rockhall::CollectionTree.new
-    collection.add_series(id)
+    inventory = Rockhall::CollectionInventory.new(id)
     toc_dst = File.join(Rails.root, "public", "fa", (id + "_toc.json"))
-    File.open(toc_dst, "w") { |f| f << collection.to_json }
+    File.open(toc_dst, "w") { |f| f << inventory.tree.to_json }
   end
 
 
