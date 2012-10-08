@@ -13,50 +13,56 @@ module EadHelper
     return ("<div id=\"view_toggle\">" + link + "</div>").html_safe
   end
 
-  def component_link(solr_doc)
-    fields = [render_document_show_field_value(:document => solr_doc, :field => "title_display"), render_document_show_field_value(:document => solr_doc, :field => "unitdate_display")]
+  def component_link
+    link_to(component_title, catalog_path(@child_doc[:id]), :class => "component_link")
+  end
+
+  def component_title
+    fields = [render_document_show_field_value(:document => @child_doc, :field => "title_display"), render_document_show_field_value(:document => @child_doc, :field => "unitdate_display")]
     fields.reject! { |c| c.empty? }
-    if solr_doc["component_children_b"]
-      link_to(fields.join(", "), catalog_path(solr_doc[:id]), :class => "component_link")
+    fields.join(", ")
+  end
+
+  def location_link
+    if @child_doc["location_display"]
+      render_document_show_field_value(:document => @child_doc, :field => "location_display")
     else
-      fields.join(", ")
+      return ""
     end 
   end
 
-  def location_link(solr_doc)
-    if solr_doc["location_display"]
-      render_document_show_field_value(:document => solr_doc, :field => "location_display")
-    end 
-  end
-
-  def component_trail(solr_doc, result=String.new)
-    result << link_to(solr_doc["collection_display"].first, catalog_path(solr_doc["eadid_s"]), :class => "component_link")
-    if solr_doc["parent_ids_display"]
-      solr_doc["parent_ids_display"].each_index do |n|
+  def component_trail result = String.new
+    result << link_to(@document[:collection_display].first, catalog_path(@document[:eadid_s]), :class => "component_link")
+    if @document[:parent_ids_display]
+      @document[:parent_ids_display].each_index do |n|
         result << " >> "
-        id = solr_doc["eadid_s"] + ":" + solr_doc["parent_ids_display"][n]
-        result << link_to(solr_doc["parent_unittitles_display"][n], catalog_path(id), :class => "component_link")
+        id = @document[:eadid_s] + ":" + @document[:parent_ids_display][n]
+        result << link_to(@document[:parent_unittitles_display][n], catalog_path(id), :class => "component_link")
       end
     end
-    result << " >> " + solr_doc["title_display"]
+    result << " >> " + @document[:title_display]
     return result.html_safe
   end
 
   def render_component_children results = String.new
     results << "<table>"
-    @children.each do |child|
-      results << "<tr><td>"
-      results << component_link(child)
-      results << "</td><td>"
-      results << location_link(child) unless location_link(child).nil?
-      results << "</td></tr>"
+    @children.each_index do |index|
+      @child_doc = @children[index]
+      index.odd? ? results << "<tr class=\"odd\">" : results << "<tr>"
+      if @children[index][:component_children_b]
+        results << "<td colspan=\"2\">" + component_link + "</td>"
+      else
+        results << "<td>" + component_title + "</td>"
+        results << "<td>" + location_link + "</td>"
+      end
+      results << "</tr>"
     end
     results << "</table>"
     return results.html_safe
   end
 
   def render_ead_sidebar results = String.new
-    if @document[:eadid_s] and has_json?
+    if has_json?
       results << "<div id=\"ead_sidebar\">"
       results << toggle_view_link
       results << "<h5>Collection Inventory</h5>"
@@ -74,7 +80,7 @@ module EadHelper
   end
 
   def has_json?
-    File.exists?(File.join(Rails.root, "public", "fa", (@document[:id] + "_toc.json")))
+   File.exists?(File.join(Rails.root, "public", "fa", (@document[:eadid_s] + "_toc.json"))) unless @document[:eadid_s].nil?
   end
 
 end

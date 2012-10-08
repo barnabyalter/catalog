@@ -2,7 +2,7 @@ module MarcHelper
 
   def document_heading
     if @document["format"] == "Archival Item"
-      component_trail(@document)
+      component_trail
     else
       @document[blacklight_config.show.heading] || @document.id
     end

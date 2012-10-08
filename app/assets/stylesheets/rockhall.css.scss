@@ -23,6 +23,16 @@ select, input, button, textarea {
 .bold { font-weight:bold }
 .italic { font-style:italic }
 
+th, td {
+  
+  border: none;
+
+}
+
+.odd {
+  
+  background: #ccc;
+}
 
 
 a {
