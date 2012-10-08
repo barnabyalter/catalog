@@ -161,4 +161,8 @@ Feature: EAD display
     Given I am on the ead page for ARC-0026
     Then I should see "Normal As The Next Guy" in italics with a span tag
 
-
+  Scenario: Showing the full ead for collections with no series level components (BL-270)
+    Given I am on the ead page for ARC-0060
+    Then I should see "Collection Inventory"
+    And I should see "Green, Al, 1983 August 24"
+    And I should not see "Full view"
