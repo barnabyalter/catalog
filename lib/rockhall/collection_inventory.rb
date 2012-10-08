@@ -8,21 +8,17 @@ class CollectionInventory
 
   def initialize(id)
     @id   = id
-    @tree =  add_first_level
-    #add_series
-  end
-
-  def add_series
-    self.tree = add_first_level
-    add_second_level
-    #add_third_level
-  end
-
-  def add_first_level(node = Array.new)
+    @tree =  Array.new
     solr_query.each do |series|
-      node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+      @tree << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
     end
-    return node
+    add_addl_series  
+  end
+
+  def add_addl_series
+    add_second_level
+    add_third_level
+    add_fourth_level
   end
 
   def add_second_level
@@ -36,6 +32,18 @@ class CollectionInventory
   end
 
   def add_third_level
+    self.tree.each do |level1|
+      level1["children"].each do |parent|
+        node = Array.new
+        solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+        end
+        parent["children"] = node
+      end
+    end
+  end
+
+  def add_fourth_level
     self.tree.each do |level1|
       level1["children"].each do |level2|
         level2["children"].each do |parent|

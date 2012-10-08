@@ -1,15 +1,16 @@
 module EadHelper
 
-  def toggle_view_link
+  def toggle_view_link link = String.new
     if params["view"] == "full"
-      link_to("Default view", catalog_path(params[:id]))
+      link << link_to("Default view", catalog_path(params[:id]))
     else
       if params[:id].match(/:/)
-        link_to("Full view", catalog_path(@document["eadid_s"], :view=>"full", :anchor => params[:id].split(/:/).last))
+        link << link_to("Full view", catalog_path(@document["eadid_s"], :view=>"full", :anchor => params[:id].split(/:/).last))
       else
-        link_to("Full view", catalog_path(params[:id], :view=>"full"))
+        link << link_to("Full view", catalog_path(params[:id], :view=>"full"))
       end
     end
+    return ("<div id=\"view_toggle\">" + link + "</div>").html_safe
   end
 
   def component_link(solr_doc)
@@ -52,6 +53,28 @@ module EadHelper
     end
     results << "</table>"
     return results.html_safe
+  end
+
+  def render_ead_sidebar results = String.new
+    if @document[:eadid_s] and has_json?
+      results << "<div id=\"ead_sidebar\">"
+      results << toggle_view_link
+      results << "<h5>Collection Inventory</h5>"
+      results << "<div id=\"" + @document[:eadid_s] + "_toc\" class=\"ead_toc\"></div>"
+    end
+    return results.html_safe
+  end
+
+  def render_ead_html
+    if params["view"] == "full" or !has_json?
+      render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}_full.html"
+    else
+      render :file => "#{Rails.root}/public/fa/#{@document[:eadid_s]}.html"
+    end
+  end
+
+  def has_json?
+    File.exists?(File.join(Rails.root, "public", "fa", (@document[:id] + "_toc.json")))
   end
 
 end

@@ -1,11 +1,6 @@
-<% if @document[:eadid_s] %>
-  <% sidebar_items << capture do -%>
-    <div id="ead_sidebar">
-      <div id="view_toggle"><%= toggle_view_link %></div>
-      <div id="<%= @document[:eadid_s] %>_toc" class="ead_toc"></div>
-    </div>
-  <% end -%>
-<% end %>
+<% sidebar_items << capture do -%>
+  <%= render_ead_sidebar %>
+<% end -%>
 
 <h1>
   <%= document_icon(@document) %>
