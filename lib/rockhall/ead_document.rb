@@ -85,6 +85,12 @@ class Rockhall::EadDocument < SolrEad::Document
 
     # *_heading is dynamic un-indexed, single string... it's a bit misleading and should be changed
 
+    # Facets
+    solr_doc.merge!({"subject_topic_facet" => self.subject})
+    solr_doc.merge!({"name_facet"          => self.corpname})
+    solr_doc.merge!({"name_facet"          => self.persname})
+    solr_doc.merge!({"genre_facet"         => self.genreform})
+
     return solr_doc
   end
 

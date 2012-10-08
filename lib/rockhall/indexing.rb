@@ -36,6 +36,11 @@ module Rockhall::Indexing
     results.gsub!(/&lt;\/title/,"</span")
     results.gsub!(/&gt;/,">")
     results.gsub!(/render=/,"class=")
+    if ENV['RAILS_RELATIVE_URL_ROOT']
+      results.gsub!(/RAILS_RELATIVE_URL_ROOT/,ENV['RAILS_RELATIVE_URL_ROOT'])
+    else
+      results.gsub!(/RAILS_RELATIVE_URL_ROOT/,"")
+    end
     return results
   end
 

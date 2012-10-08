@@ -58,15 +58,16 @@
 
         <h2 id="subjects">Subject Headings</h2>
         <dl class="defList">
-          <dt>Persons:</dt>
+          <dt>Name:</dt>
           <dd><ul>
             <xsl:apply-templates select="//ead:archdesc/ead:controlaccess/ead:persname"/>
+            <xsl:apply-templates select="//ead:archdesc/ead:controlaccess/ead:corpname"/>
           </ul></dd>
-           <dt>Genreform:</dt>
+           <dt>Genre:</dt>
           <dd><ul>
             <xsl:apply-templates select="//ead:archdesc/ead:controlaccess/ead:genreform"/>
           </ul></dd>
-          <dt>Subjects:</dt>
+          <dt>Topic:</dt>
           <dd><ul>
             <xsl:apply-templates select="//ead:archdesc/ead:controlaccess/ead:subject"/>
           </ul></dd>
@@ -225,13 +226,20 @@
 
     <!-- Subject headings -->
     <xsl:template match="ead:controlaccess/ead:persname">
-      <li><a href="/"><xsl:apply-templates/></a></li>
+      <xsl:variable name="value" select="self::ead:persname"/>
+      <li><a href="RAILS_RELATIVE_URL_ROOT/catalog?f[name_facet][]={$value}"><xsl:apply-templates/></a></li>
+    </xsl:template>
+    <xsl:template match="ead:controlaccess/ead:corpname">
+      <xsl:variable name="value" select="self::ead:corpname"/>
+      <li><a href="RAILS_RELATIVE_URL_ROOT/catalog?f[name_facet][]={$value}"><xsl:apply-templates/></a></li>
     </xsl:template>
     <xsl:template match="ead:controlaccess/ead:genreform">
-      <li><a href="/"><xsl:apply-templates/></a></li>
+      <xsl:variable name="value" select="self::ead:genreform"/>
+      <li><a href="RAILS_RELATIVE_URL_ROOT/catalog?f[genre_facet][]={$value}"><xsl:apply-templates/></a></li>
     </xsl:template>
     <xsl:template match="ead:controlaccess/ead:subject">
-      <li><a href="/"><xsl:apply-templates/></a></li>
+      <xsl:variable name="value" select="self::ead:subject"/>
+      <li><a href="RAILS_RELATIVE_URL_ROOT/catalog?f[subject_topic_facet][]={$value}"><xsl:apply-templates/></a></li>
     </xsl:template>
 
     <!-- empty template to skip unitdate since it's dealt with in unittitle
