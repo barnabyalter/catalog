@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '~>3.2.8'
 
-gem 'blacklight', '=3.6.1.1'
+gem 'blacklight'
 gem 'sqlite3'
 gem 'sanitize'
 gem 'json'
