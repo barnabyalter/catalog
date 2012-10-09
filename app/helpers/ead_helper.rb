@@ -53,7 +53,7 @@ module EadHelper
         results << "<td colspan=\"2\">" + component_link + "</td>"
       else
         results << "<td>" + component_title + "</td>"
-        results << "<td>" + location_link + "</td>"
+        results << "<td class=\"nowrap\">" + location_link + "</td>"
       end
       results << "</tr>"
     end
