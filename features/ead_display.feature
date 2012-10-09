@@ -166,3 +166,14 @@ Feature: EAD display
     Then I should see "Collection Inventory"
     And I should see "Green, Al, 1983 August 24"
     And I should not see "Full view"
+
+  Scenario: XML display (BL-219)
+    Given I am on the ead page for ARC-0005
+    When I follow "XML view"
+    Then I should see "Eddie Cochran Historical Organization Collection"
+
+  Scenario: Redirects for non-existent ead xml files (BL-219)
+    Given I am on the ead xml page for ARC-BOGUS
+    Then I should see "XML file for ARC-BOGUS was not found or is unavailable"
+
+

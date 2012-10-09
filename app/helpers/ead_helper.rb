@@ -65,6 +65,7 @@ module EadHelper
     if has_json?
       results << "<div id=\"ead_sidebar\">"
       results << toggle_view_link
+      results << link_to("XML view", ead_xml_path, { :target => "_blank" })
       results << "<h5>Collection Inventory</h5>"
       results << "<div id=\"" + @document[:eadid_s] + "_toc\" class=\"ead_toc\"></div>"
     end

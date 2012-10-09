@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^the ead page for (.+)/
       catalog_path($1)
 
+    when /^the ead xml page for (.+)/
+      ead_xml_path($1)
+
     when /^the component page for (.+)/
       params = $1.split(/:/)
       components_path(:ead_id=>params[0], :component_level=>params[1], :parent_ref=>params[2])

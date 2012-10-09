@@ -24,4 +24,13 @@ module Rockhall::ControllerBehaviors
     return docs
   end
 
+  def ead_xml
+    file = File.join(Rails.root, Rails.configuration.rockhall_config[:ead_path], (params[:id] + ".xml"))
+    if File.exists?(file)
+      render :file => file 
+    else
+      flash[:notice] = "XML file for #{params[:id]} was not found or is unavailable"
+      redirect_to root_path
+    end
+  end
 end
