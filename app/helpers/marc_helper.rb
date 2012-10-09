@@ -9,10 +9,21 @@ module MarcHelper
   end
 
   def render_external_link args, results = Array.new
-    text      = args[:document].get(blacklight_config.show_fields[args[:field]][:text])
-    url       = args[:document].get(args[:field])
-    link_text = text.nil? ? url : text
-    link_to(link_text, url, { :target => "_blank" }).html_safe
+    value = args[:document][args[:field]]
+    if value.length > 1
+      value.each_index do |index|
+        text      = args[:document][blacklight_config.show_fields[args[:field]][:text]][index]
+        url       = value[index]
+        link_text = text.nil? ? url : text
+        results << link_to(link_text, url, { :target => "_blank" }).html_safe
+      end
+    else
+      text      = args[:document].get(blacklight_config.show_fields[args[:field]][:text])
+      url       = args[:document].get(args[:field])
+      link_text = text.nil? ? url : text
+      results << link_to(link_text, url, { :target => "_blank" }).html_safe
+    end
+    return results.join(field_value_separator).html_safe
   end
 
   def render_facet_link args, results = Array.new
