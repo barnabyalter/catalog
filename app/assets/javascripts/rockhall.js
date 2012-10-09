@@ -45,6 +45,19 @@ $(document).ready(function () {
 });
 
 
+// Used with anchor links in the ead sidebar so that the document
+// portion of the ead is reloaed via ajax and then scrolls to the anchor
+$(document).ready(function () {
+  $('.my-link').click(function(event){
+      url = this.href.split("#");
+      $('#main_container').load(url[0], function() {
+        window.scrollTo(0, $("#"+url[1]).position().top);}
+      );
+      history.replaceState({}, '', this);
+      event.preventDefault(); // Prevent link from following its href
+  });
+});
+
 
 /*
 
