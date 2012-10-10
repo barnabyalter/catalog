@@ -46,6 +46,11 @@ a {
   }
 }
 
+p { 
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
 .links {
   font-size: 93%;
   padding: 1em 0 0 1em;
@@ -254,9 +259,11 @@ span.container {
 div.component_part {
   padding: 3px;
   margin: 2px 0;
-}
 
-h5 { margin: 0px; }
+  h5, p {
+    margin-left: 25px;
+  }
+}
 
 div {
   &.c01 {
@@ -307,10 +314,6 @@ div {
 #ead_body {
   dd p {
     margin: 0;
-    padding: 0;
-  }
-  p {
-    margin: 0 0 10px 0;
     padding: 0;
   }
   .hangingindent {
