@@ -13,39 +13,37 @@
       <div id="ead_body">
 
         <!-- General information section displays fields from archdesc in horizontal format using <dl> -->
-        <h2>General Information</h2>
+        <h2 id="geninfo">General Information</h2>
         <dl class="defList">
           <dt>Title:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:unittitle"/></dd>
-          <dt>Extent:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:physdesc/ead:extent"/></dd>
           <dt>Dates:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:unitdate"/></dd>
-          <dt>Language of Finding Aid:</dt>
-          <dd><xsl:apply-templates select="//ead:eadheader/ead:profiledesc/ead:langusage"/></dd>
-          <dt>Language of Materials:</dt>
+          <dt>Extent:</dt>
+          <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:physdesc/ead:extent"/></dd>
+          <dt>Language:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:did/ead:langmaterial"/></dd>
-          <dt>Preferred Citation:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:prefercite/ead:p"/></dd>
-          <dt>Custodial History:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:custodhist/ead:p"/></dd>
-          <dt>Use Restrictions:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:userestrict/ead:p"/></dd>
-          <dt>Access Restrictions:</dt>
-          <dd><xsl:apply-templates select="//ead:archdesc/ead:accessrestrict/ead:p"/></dd>
           <dt>Processing Information:</dt>
           <dd><xsl:apply-templates select="//ead:archdesc/ead:processinfo/ead:p"/></dd>
+          <dt>Preferred Citation:</dt>
+          <dd><xsl:apply-templates select="//ead:archdesc/ead:prefercite/ead:p"/></dd>
         </dl>
 
         <!-- Other sections of archdesc are displayed in paragraph format -->
+        
+        <xsl:apply-templates select="//ead:archdesc/ead:custodhist"/>
+        
+        <h2 id="userestrict">Restrictions</h2>
+        <xsl:apply-templates select="//ead:archdesc/ead:userestrict/ead:p"/>
+        <xsl:apply-templates select="//ead:archdesc/ead:accessrestrict/ead:p"/>
+
         <h2 id="abstract">Collection Overview</h2>
         <p><xsl:apply-templates select="//ead:archdesc/ead:did/ead:abstract"/></p>
-
-        <!-- These sections get display names from ead:head -->
+        
         <xsl:apply-templates select="//ead:archdesc/ead:bioghist"/>
-        <xsl:apply-templates select="//ead:archdesc/ead:relatedmaterial"/>
-        <xsl:apply-templates select="//ead:archdesc/ead:separatedmaterial"/>
         <xsl:apply-templates select="//ead:archdesc/ead:accruals"/>
+        <xsl:apply-templates select="//ead:archdesc/ead:separatedmaterial"/>
+        <xsl:apply-templates select="//ead:archdesc/ead:relatedmaterial"/>
 
         <h2 id="subjects">Subject Headings</h2>
         <dl class="defList">
