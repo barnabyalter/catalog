@@ -66,12 +66,32 @@ module EadHelper
       results << "<div id=\"ead_sidebar\">"
       results << toggle_view_link
       results << link_to("XML view", ead_xml_path, { :target => "_blank" })
-      results << "<br/>"
-      results << link_to("Collection Overview", catalog_path(params[:id], :anchor => "abstract"), :class => "my-link")
+      results << content_tag(:ul, ead_anchor_links, :id =>"ead_nav")
       results << "<h5>Collection Inventory</h5>"
       results << "<div id=\"" + @document[:eadid_s] + "_toc\" class=\"ead_toc\"></div>"
     end
     return results.html_safe
+  end
+
+  def ead_anchor_links results = String.new
+    links = [
+      "custodhist_label_z",
+      "userestrict_label_z",
+      "abstract_label_z",
+      "bioghist_label_z",
+      "accruals_label_z",
+      "separatedmaterial_label_z",
+      "relatedmaterial_label_z",
+    ]
+    results << content_tag(:li, link_to("General Information", catalog_path(params[:id], :anchor => "geninfo"), :class => "ead_anchor"))
+    links.each do |field|
+      anchor = field.split(/_/).first
+      unless @document[field.to_sym].nil?
+        results << content_tag(:li, link_to(@document[field.to_sym], catalog_path(params[:id], :anchor => anchor), :class => "ead_anchor"))
+      end
+    end
+    results << content_tag(:li, link_to("Subject Headings", catalog_path(params[:id], :anchor => "subjects"), :class => "ead_anchor"))
+    return  results.html_safe
   end
 
   def render_ead_html
