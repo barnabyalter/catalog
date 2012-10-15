@@ -189,6 +189,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'langmaterial_display',       :label => 'Language:'
     config.add_show_field 'note_display',               :label => 'Notes:'
     config.add_show_field 'accession_display',          :label => 'Accession Numbers:'
+    config.add_show_field 'print_run_display',          :label => 'Limited Print Run:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

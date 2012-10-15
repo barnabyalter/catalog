@@ -76,6 +76,8 @@ class Rockhall::EadComponent < SolrEad::Component
     # These guys depend on what's in <head> so we do some xpathy stuff...
     t.note(:path=>'odd[./head="General note"]/p', :index_as => [:not_searchable, :displayable])
     t.accession(:path=>'odd[./head[starts-with(.,"Museum Accession")]]/p', :index_as => [:not_searchable, :displayable])
+    t.print_run(:path=>'odd[./head[starts-with(.,"Limited")]]/p', :index_as => [:not_searchable, :displayable])
+
 
 
   end
