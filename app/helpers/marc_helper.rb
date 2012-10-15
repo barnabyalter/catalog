@@ -30,13 +30,24 @@ module MarcHelper
     value = args[:document][args[:field]]
     if value.is_a? Array
       value.each do |text|
-        results << link_to(text, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], Sanitize.clean(text)), :class=>"facet_select label")
+        results << facet_link(text, blacklight_config.show_fields[args[:field]][:facet])
       end
     else
-      results << link_to(value, add_facet_params_and_redirect(blacklight_config.show_fields[args[:field]][:facet], Sanitize.clean(value)), :class=>"facet_select label")
+      results << facet_link(value, blacklight_config.show_fields[args[:field]][:facet])
     end
     return results.join(field_value_separator).html_safe
   end
+
+  def facet_link text, facet
+    link_to(text, 
+            add_facet_params_and_redirect(facet, remove_highlighting(text)), 
+            :class=>"facet_select label")
+  end
+
+  def remove_highlighting text
+    text.gsub(/<\/span>/,"").gsub(/<span.+>/,"")
+  end
+
 
   def render_search_link args, results = Array.new
     args[:document][args[:field]].each do |text|
