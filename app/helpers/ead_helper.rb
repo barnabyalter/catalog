@@ -62,11 +62,11 @@ module EadHelper
   end
 
   def render_ead_sidebar results = String.new
+    results << "<div id=\"ead_sidebar\">"
+    results << toggle_view_link if has_json?
+    results << link_to("XML view", ead_xml_path, { :target => "_blank" })
+    results << content_tag(:ul, ead_anchor_links, :id =>"ead_nav")
     if has_json?
-      results << "<div id=\"ead_sidebar\">"
-      results << toggle_view_link
-      results << link_to("XML view", ead_xml_path, { :target => "_blank" })
-      results << content_tag(:ul, ead_anchor_links, :id =>"ead_nav")
       results << "<h5>Collection Inventory</h5>"
       results << "<div id=\"" + @document[:eadid_s] + "_toc\" class=\"ead_toc\"></div>"
     end
@@ -91,6 +91,9 @@ module EadHelper
       end
     end
     results << content_tag(:li, link_to("Subject Headings", catalog_path(params[:id], :anchor => "subjects"), :class => "ead_anchor"))
+    unless has_json?
+      results << content_tag(:li, link_to("Collection Inventory", catalog_path(params[:id], :anchor => "inventory"), :class => "ead_anchor"))
+    end
     return  results.html_safe
   end
 

@@ -1,5 +1,5 @@
 <% sidebar_items << capture do -%>
-  <%= render_ead_sidebar %>
+  <%= render_ead_sidebar if @document[:eadid_s] %>
 <% end -%>
 
 <h1>
