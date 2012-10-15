@@ -18,37 +18,24 @@ Feature: EAD display
     And I should see "Big Joe Turner Biography"
 
   Scenario: Date Expression in first component level (BL-9)
-    Given I am on the ead page for ARC-0105
-    Then I should see "Business files"
-    And I should see "Publications"
-
-  Scenario: Date expression in sub component level (BL-9) and accession numbers
-    Given I am on the ead page for ARC-0105
-    Then I should see "Awards and certificates, 1976-1986"
-    When I follow "Collection Inventory"
-    Then I should see "Oversize materials, 1977-1985, undated"
-
-  Scenario: Date expression in sub component level (BL-9) and accession numbers
-    Given I am on the ead page for ARC-0105:2:ref42
-    Then I should see "Awards and certificates"
-    And I should see "Awards and certificates, 1976-1986"
+    Given I am on the ead page for ARC-0105:ref45
+    Then I should see "Business papers, 1945-1946"
+    And I should see "Flyers, 1983-1984"
 
   Scenario: Names (BL-7, BL-147)
     Given I am on the ead page for ARC-0058
     Then I should see "Alternative rock music"
 
   Scenario: Dimensions note (see BL-124)
-    Given I am on the ead page for ARC-0065
+    Given I am on the ead page for ARC-0065:ref10
     Then I should see "Limited Print Run"
     And I should see "Non-numbered edition of 200"
+    And I should see "Dimensions"
+    Given I am on the ead page for ARC-0065:ref88
     And I should see "ChromaDepth 3D image with required glass for viewing"
-    And I should see "23"
-    And I should see "29"
-    And I should see "Drawer-Folder:"
-    And I should see "FF.1.4-7,"
 
   Scenario: I need to see all sub-components (BL-58)
-    Given I am on the ead page for ARC-0065
+    Given I am on the ead page for ARC-0065:ref42
     Then I should see "Psycotic Pineapple, 1980 August 4-1980 September 15"
     And I should see "Ultras with Dick Dale, 1992 August 1"
 
@@ -60,10 +47,6 @@ Feature: EAD display
   Scenario: Show accession numbers (BL-118) Note: this is revoked from BL-49
     Given I am on the ead page for ARC-0058
     Then I should see "A2005.31.15"
-
-  Scenario: HTTP calls for components should still work (BL-55)
-    Given I am on the ead page for ARC-0065
-    Then I should see "Psycotic Pineapple, 1980 August 4-1980 September 15"
 
   Scenario: Displaying italics (BL-33)
     Given I am on the ead page for ARC-0058
@@ -87,15 +70,15 @@ Feature: EAD display
     And I should see "Collection is open for research"
 
   Scenario: Existence and Location of Originals (BL-117)
-    Given I am on the ead page for ARC-0006
+    Given I am on the ead page for ARC-0006:ref641
     Then I should see "original plaque"
 
   Scenario: Physical description (BL-119)
-    Given I am on the ead page for ARC-0006:3:ref725
+    Given I am on the ead page for ARC-0006:ref725
     Then I should see "Trimmed"
 
   Scenario: Language of Materials, Museum Acc. #, Separated Materials (BL-118)
-    Given I am on the ead page for ARC-0006
+    Given I am on the ead page for ARC-0006:ref690
     Then I should see "Material is in French."
     And I should see "A2010.1.18"
     And I should see "Item on exhibit. Consult the Library and Archives staff in advance of your visit for additional information."
@@ -130,7 +113,7 @@ Feature: EAD display
     And I should see "Accruals"
 
   Scenario: Displaying multiple copies of an archival item (BL-202)
-    Given I am on the ead page for ARC-0006
+    Given I am on the ead page for ARC-0006:ref213
     Then I should see "Box: 5, Folder: 1, Object: 1-2 (Original Copy)"
     And I should see "Box: 1B, Folder: 22, Object: 1-2 (Access Copy)"
     And I should not see "Box: 1B, Folder: 22, Object: 3, Box: 5, Folder: 1, Object: 3"
