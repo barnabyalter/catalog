@@ -178,3 +178,7 @@ Feature: EAD display
     Then I should see "Series V: Posters"
     When I follow "XML view"
     Then I should see "Jeff Gold Collection"
+
+  Scenario: EAD components need a default title, if there isn't one (BL-274)
+    Given I am on the ead page for ARC-0006ref1207
+    Then I should see the field content "blacklight-title_display" contain "1940"
