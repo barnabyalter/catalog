@@ -181,4 +181,5 @@ Feature: EAD display
 
   Scenario: EAD components need a default title, if there isn't one (BL-274)
     Given I am on the ead page for ARC-0006ref1207
-    Then I should see the field content "blacklight-title_display" contain "1940"
+    Then I should see "Alan Freed Collection >> Series VII: 2011 Accrual [CLOSED] >> Yearbook - Quaker Annual >> 1940"
+    Then I should see the field content "blacklight-unitdate_display" contain "1940"

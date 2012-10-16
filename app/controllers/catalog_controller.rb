@@ -115,6 +115,8 @@ class CatalogController < ApplicationController
 
     config.add_show_field 'format',               :label => 'Format:'
     config.add_show_field 'format_dtl_display',   :label => 'Format Details:'
+    config.add_show_field 'unitdate_display',     :label => 'Dates:'
+    config.add_show_field 'location_display',     :label => 'Location:'
 
     # Links to external resources
     config.add_show_field 'ohlink_url_display',   :label         => 'OhioLink Resource:',

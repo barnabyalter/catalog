@@ -84,7 +84,9 @@ class Rockhall::EadComponent < SolrEad::Component
 
   def to_solr(solr_doc = Hash.new)
     super(solr_doc)
-    solr_doc.merge!({"title_display"       => self.unitdate}) if self.title.first.blank?
+
+    # Alter our heading display if the title is blank
+    solr_doc["heading_display"] = (solr_doc["heading_display"] + self.unitdate.first) if self.title.first.blank?
     solr_doc.merge!({"xml_display"         => self.to_xml})
     solr_doc.merge!({"format"              => "Archival Item"})
     solr_doc.merge!({"material_facet"      => self.material  })

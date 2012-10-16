@@ -40,7 +40,13 @@ module EadHelper
         result << link_to(@document[:parent_unittitles_display][n], catalog_path(id), :class => "component_link")
       end
     end
-    result << " >> " + @document[:title_display]
+    if  @document[:title_display]
+      result << " >> " + @document[:title_display]
+    elsif @document[:unitdate_display]
+      result << " >> " + @document[:unitdate_display].first
+    else
+      result << " >> [No title]"
+    end
     return result.html_safe
   end
 
