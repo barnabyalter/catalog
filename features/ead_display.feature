@@ -159,4 +159,7 @@ Feature: EAD display
     Given I am on the ead xml page for ARC-BOGUS
     Then I should see "XML file for ARC-BOGUS was not found or is unavailable"
 
+  Scenario: Hide contents heading when there are no children (BL-275)
+    Given I am on the ead page for ARC-0006ref1150
+    Then I should not see "Contents"
 

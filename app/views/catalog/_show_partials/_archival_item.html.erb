@@ -12,7 +12,7 @@
   <% end -%>
 </dl>
 
-<% unless @children.nil? %>
+<% unless @children.empty? %>
   <h2>Contents</h2>
   <%= render_component_children %>
 <% end %>
