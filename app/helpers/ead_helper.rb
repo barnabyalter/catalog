@@ -36,7 +36,7 @@ module EadHelper
     if @document[:parent_ids_display]
       @document[:parent_ids_display].each_index do |n|
         result << " >> "
-        id = @document[:eadid_s] + ":" + @document[:parent_ids_display][n]
+        id = @document[:eadid_s] + @document[:parent_ids_display][n]
         result << link_to(@document[:parent_unittitles_display][n], catalog_path(id), :class => "component_link")
       end
     end
@@ -64,7 +64,7 @@ module EadHelper
   def render_ead_sidebar results = String.new
     results << "<div id=\"ead_sidebar\">"
     results << toggle_view_link if has_json?
-    results << link_to("XML view", ead_xml_path, { :target => "_blank" })
+    results << link_to("XML view", ead_xml_path(@document[:eadid_s]), { :target => "_blank" })
     results << content_tag(:ul, ead_anchor_links, :id =>"ead_nav")
     if has_json?
       results << "<h5>Collection Inventory</h5>"
