@@ -24,7 +24,7 @@ class CollectionInventory
   def add_second_level
     self.tree.each do |parent|
       node = Array.new
-      solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+      solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
         node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
       end
       parent["children"] = node
@@ -35,7 +35,7 @@ class CollectionInventory
     self.tree.each do |level1|
       level1["children"].each do |parent|
         node = Array.new
-        solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+        solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
           node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
         end
         parent["children"] = node
@@ -48,7 +48,7 @@ class CollectionInventory
       level1["children"].each do |level2|
         level2["children"].each do |parent|
           node = Array.new
-          solr_query({:parent => parent["metadata"]["id"].split(/:/).last}).each do |series|
+          solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
             node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
           end
           parent["children"] = node

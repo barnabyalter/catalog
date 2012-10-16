@@ -4,8 +4,8 @@ module EadHelper
     if params["view"] == "full"
       link << link_to("Default view", catalog_path(params[:id]))
     else
-      if params[:id].match(/:/)
-        link << link_to("Full view", catalog_path(@document["eadid_s"], :view=>"full", :anchor => params[:id].split(/:/).last))
+      if @document[:ref_s]
+        link << link_to("Full view", catalog_path(@document["eadid_s"], :view=>"full", :anchor => @document[:ref_s]))
       else
         link << link_to("Full view", catalog_path(params[:id], :view=>"full"))
       end
