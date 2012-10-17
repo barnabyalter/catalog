@@ -4,13 +4,14 @@
 module Rockhall
 class CollectionInventory
 
-  attr_accessor :id, :tree
+  attr_accessor :id, :tree, :depth
 
   def initialize(id)
     @id   = id
     @tree =  Array.new
     solr_query.each do |series|
-      @tree << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+      @tree << json_node(series)
+      @depth = 1
     end
     add_addl_series  
   end
@@ -25,9 +26,10 @@ class CollectionInventory
     self.tree.each do |parent|
       node = Array.new
       solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
-        node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+        node << json_node(series)
       end
       parent["children"] = node
+      @depth = 2 unless node.empty?
     end
   end
 
@@ -36,9 +38,10 @@ class CollectionInventory
       level1["children"].each do |parent|
         node = Array.new
         solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
-          node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+          node << json_node(series)
         end
         parent["children"] = node
+        @depth = 3 unless node.empty?
       end
     end
   end
@@ -49,9 +52,10 @@ class CollectionInventory
         level2["children"].each do |parent|
           node = Array.new
           solr_query({:parent => parent["metadata"]["ref"]}).each do |series|
-            node << { "data" => series["title_display"], "metadata" => { "id" => series["id"], "ref" => series["ref_s"], "eadid" => series["eadid_s"] }}
+            node << json_node(series)
           end
           parent["children"] = node
+          @depth = 4 unless node.empty?
         end
       end
     end
@@ -61,12 +65,23 @@ class CollectionInventory
     if opts[:parent]
       query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND parent_id_s:"' + opts[:parent] + '"'
     else
-      query[:q] = 'eadid_s:"' + @id + '" AND component_children_b:TRUE AND component_level_i:1'
+      query[:q] = 'eadid_s:"' + @id + '" AND component_level_i:1'
     end
     query[:fl]   = 'id, component_level_i, parent_id_s, title_display, ref_s, eadid_s'
     query[:qt]   = 'document'
     query[:rows] = 10000
     Blacklight.solr.find(query)["response"]["docs"].collect { |doc| doc }
+  end
+
+  def json_node series, node = Hash.new, metadata = Hash.new, attr = Hash.new
+    node["data"] = series["title_display"]
+    metadata["id"] = series["id"]
+    metadata["ref"] = series["ref_s"]
+    metadata["eadid"] = series["eadid_s"]
+    attr["id"] = series["id"]
+    node["metadata"] = metadata
+    node["attr"] = attr
+    return node
   end
 
 

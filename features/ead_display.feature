@@ -183,3 +183,9 @@ Feature: EAD display
     Given I am on the ead page for ARC-0006ref1207
     Then I should see "Alan Freed Collection >> Series VII: 2011 Accrual [CLOSED] >> Yearbook - Quaker Annual >> 1940"
     Then I should see the field content "blacklight-unitdate_display" contain "1940"
+
+  @javascript
+  Scenario: Collections with mixed item and series first-level components  (BL-283)
+    Given I am on the ead page for ARC-0029
+    Then I should see "Series I: Papers"
+    And I should see "Series III: Photographs"
