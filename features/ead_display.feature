@@ -191,3 +191,8 @@ Feature: EAD display
     Given I am on the ead page for ARC-0029
     Then I should see "Series I: Papers"
     And I should see "Series III: Photographs"
+  
+  @javascript
+  Scenario: Archival items need inventory tree to open to location (BL-284)
+    Given I am on the ead page for ARC-0029ref9
+    Then I should see "Video and audio inventories"

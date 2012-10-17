@@ -160,3 +160,18 @@ function componentLink() {
   });
 
 }
+
+function openTreeForItem(id) {
+  $(document).ready(function () {
+
+    if(id){
+      $(".ead_toc").bind("loaded.jstree", function (event, data) {
+        var parents = $(".ead_toc").jstree("get_path", "#"+id, "TRUE");
+        $.each(parents, function(index, value) { 
+          $(".ead_toc").jstree("open_node", "#"+value)
+        });
+      });
+    };
+
+  });
+}

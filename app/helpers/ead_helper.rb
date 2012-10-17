@@ -122,4 +122,10 @@ module EadHelper
    File.exists?(File.join(Rails.root, "public", "fa", (@document[:eadid_s] + "_toc.json"))) unless @document[:eadid_s].nil?
   end
 
+  def parent_component_id
+    if @document[:eadid_s] and @document[:parent_id_s]
+      return (@document[:eadid_s] + @document[:parent_id_s])
+    end
+  end
+
 end
