@@ -14,7 +14,7 @@ module EadHelper
   end
 
   def component_link
-    link_to(component_title, catalog_path(@child_doc[:id]), :class => "component_link")
+    link_to(component_title, catalog_path(@child_doc[:id]), :class => "component_link", :id => @child_doc[:id])
   end
 
   def component_title
@@ -31,23 +31,30 @@ module EadHelper
     end 
   end
 
-  def component_trail result = String.new
-    result << link_to(@document[:collection_display].first, catalog_path(@document[:eadid_s]), :class => "component_link")
+  def component_trail trail = Array.new
+    trail << trail_link(@document[:collection_display].first, @document[:eadid_s])
     if @document[:parent_ids_display]
       @document[:parent_ids_display].each_index do |n|
-        result << " >> "
-        id = @document[:eadid_s] + @document[:parent_ids_display][n]
-        result << link_to(@document[:parent_unittitles_display][n], catalog_path(id), :class => "component_link")
+        trail << trail_link(@document[:parent_unittitles_display][n], (@document[:eadid_s] + @document[:parent_ids_display][n]))
       end
     end
     if  @document[:title_display]
-      result << " >> " + @document[:title_display]
+      trail << @document[:title_display]
     elsif @document[:unitdate_display]
-      result << " >> " + @document[:unitdate_display].first
+      trail << @document[:unitdate_display].first
     else
-      result << " >> [No title]"
+      trail << "[No title]"
     end
-    return result.html_safe
+    return trail.join(" >> ").html_safe
+  end
+
+  def trail_link text, id
+    if id == @document[:eadid_s]
+      link_to(text, catalog_path(id), :class => "component_link")
+    else
+      link_to(text, catalog_path(id), :class => "component_link", :id => id)
+    end
+    
   end
 
   def render_component_children results = String.new

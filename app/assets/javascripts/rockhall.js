@@ -135,12 +135,27 @@ function showComponent(data) {
 
 }
 
+// When linking to an archival item:
+//  - replaces the main section of the page with the new html via ajax 
+//     instead of a completd http call
+//  - updates the history so the browser's back button will work
+//  - closes/reopens the JStree to same location as the component
 function componentLink() {
+  $(".component_link").click( function() {
 
-  $(".component_link").click( function() { 
-    var url = this.getAttribute("href");
+    var url     = this.getAttribute("href");
+    var id      = this.getAttribute("id");
+    var parents = $(".ead_toc").jstree("get_path", "#"+id, "TRUE");
+
     $('#main_container').load(url);
     history.replaceState({}, '', this);
+    
+    if(id){
+      $.each(parents, function(index, value) { 
+        $(".ead_toc").jstree("open_node", "#"+value)
+      });
+    };
+    
     return false;
   });
 

@@ -164,7 +164,7 @@ Feature: EAD display
     Then I should not see "Contents"
 
   @javascript
-  Scenario: EAD navigation (BL-276)
+  Scenario: EAD navigation (BL-276, BL-281)
     Given I am on the ead page for ARC-0037
     When I follow "Collection Overview"
     Then I should see "The Jeff Gold Collection"
@@ -172,6 +172,8 @@ Feature: EAD display
     Then I should see "Adams, Ryan, undated"
     When I follow "Beach Boys"
     Then I should see "General, 1969-1975, undated"
+    And I should see "Beatles"
+    And I should see "Carpenters"
     When I follow "Accruals"
     Then I should see "Accruals"
     When I follow "Series V: Posters"
