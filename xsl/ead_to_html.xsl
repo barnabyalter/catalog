@@ -45,7 +45,8 @@
         <xsl:apply-templates select="//ead:archdesc/ead:separatedmaterial"/>
         <xsl:apply-templates select="//ead:archdesc/ead:relatedmaterial"/>
                
-        <h2 id="subjects">Subject Headings</h2>
+        <h2 id="subjects">Subjects</h2>
+        <p>Click on the links below to see more items in the catalog on these topics.</p>
         <dl class="defList">
           <dt>Name:</dt>
           <dd><ul>
